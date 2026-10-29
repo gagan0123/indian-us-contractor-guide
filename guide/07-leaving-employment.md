@@ -1,7 +1,9 @@
 # Leaving employment: what to collect and what it costs in tax
 
 Do this list in your notice period. Several items are hard to get once
-you have left.
+you have left. It applies equally when you move from the Indian entity
+to a contract with another entity of the same group
+(`12-same-group-switch.md`): the Indian employment still ends.
 
 ## Collect before your last day
 

@@ -16,6 +16,8 @@ chapter relies on secondary sources only, it says so.
   `indiabudget.gov.in/doc/Finance_Bill.pdf`, `/doc/memo.pdf`. Primary
   (the enacted Finance Act, 2026, Act 4 of 2026, received assent on 30
   March 2026; its text was not compared clause by clause with the Bill).
+- Income-tax Act, 2025, s. 17(1)(d) (specified securities from a current
+  or former employer): eztax.in/income-tax-act-2025/section-17. Primary.
 - Income-tax Rules, 2026, Rule 46 (books, seven-year retention):
   `lawspedia.in/rule-46-of-income-tax-rules-2026`.
 - Old-to-new section maps: cleartax.in (income-tax-act-2025 section
@@ -37,6 +39,8 @@ chapter relies on secondary sources only, it says so.
 
 ## GST
 
+- IGST Act s. 2(14) (location of the recipient), read at
+  cbic-gst.gov.in/hindi/IGST-bill-e.html. Primary.
 - IGST Act ss. 2(6), 5(3), 7(5), 13, 16; CGST Act ss. 2(6), 10, 22, 24,
   25, 29, 36, 37, 39, 47, 54; CGST Rules 46, 47, 61A, 89, 96A. Primary.
 - Notification 10/2017-Integrated Tax (registration exemption for

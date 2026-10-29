@@ -5,6 +5,7 @@ Tick in order. Chapter references in brackets.
 ## During the notice period
 
 - [ ] Contract read; the clauses in `09` checked; it is **Deel Contractor**, not EOR (`04`)
+- [ ] Same group as the employer? Contract-or-employment and export questions put to the CA; RSU treatment on leaving confirmed in writing with the plan administrator (`12`)
 - [ ] Group health insurance end date known; conversion offer asked for (`08`)
 - [ ] Own **health insurance** bought, starting before the group cover ends (`08`)
 - [ ] **Term insurance** applied for while salary slips are current (`08`)

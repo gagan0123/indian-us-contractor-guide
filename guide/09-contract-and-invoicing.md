@@ -15,7 +15,7 @@ it and few others. Read for:
 | **Termination** | Notice period on each side. A short notice by the client is your main income risk: size the emergency fund to it |
 | **IP assignment** | Normal for the work product. Watch for clauses that take **pre-existing** or unrelated work (your own libraries, side projects). Ask for a carve-out listing them |
 | **Non-compete, non-solicit** | Breadth and duration; a broad non-compete can stop you taking other clients |
-| **Exclusivity, hours** | Whether you may work for others. A contract that dictates hours, place and tools, with no other clients allowed, starts to look like employment in substance; mostly a client's concern, but worth noticing |
+| **Exclusivity, hours** | Whether you may work for others. A contract that dictates hours, place and tools, with no other clients allowed, looks like employment in substance, and then your income is salary: no presumptive scheme, no GST. It matters most when the client is your former employer's group (`12-same-group-switch.md`) |
 | **Confidentiality** | Standard; check it does not bar you from showing the work to your CA or a lender if needed |
 | **Liability and indemnity** | A cap, ideally fees paid in the last 12 months. Uncapped indemnity is a real risk for a sole contractor |
 | **Governing law, disputes** | Usually a US state; know that enforcement would be costly either way |

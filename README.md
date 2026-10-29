@@ -32,6 +32,7 @@ repository.
 | `guide/09-contract-and-invoicing.md` | Contract clauses, your GST invoice, the sales register |
 | `guide/10-records-notices-loans.md` | Retention, folders, notices, proof of income |
 | `guide/11-working-with-a-ca.md` | Choosing a CA, what to send, the first-year questions |
+| `guide/12-same-group-switch.md` | Moving from the Indian entity's payroll to a contract with the US entity of the same group |
 | `guide/calendar.md` | Every date in the year |
 | `guide/glossary.md`, `guide/sources.md` | Terms; where each rule comes from |
 | `checklists/` | Setup, monthly, quarterly, year-end |

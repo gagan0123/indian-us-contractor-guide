@@ -5,6 +5,12 @@ rupees through Deel. Legally you become a **self-employed professional**
 running a one-person export business. This guide is the map. Read this
 page, then the chapters in the order your first month needs them.
 
+> **Moving within the same company group?** If you are going from the
+> Indian entity's payroll to a contract with the US entity of the same
+> group, read `12-same-group-switch.md` first. Whether the arrangement is
+> really a contract, and which entity receives the work, decide whether
+> the rest of this guide applies as written.
+
 ## What changes
 
 | | As an employee | As a contractor |
@@ -25,7 +31,8 @@ page, then the chapters in the order your first month needs them.
 
 **Before your last working day**
 1. Read and negotiate the contract (`09`). Confirm it is **Deel
-   Contractor**, not Deel EOR.
+   Contractor**, not Deel EOR. Same group as your employer? Read `12`
+   and take the contract to a CA before signing.
 2. Buy **health and term insurance**, or convert the group policy (`08`).
 3. Collect Form 130 details, the F&F statement, EPF details (`07`).
 4. Open or choose **one bank account for the work**, with a bank whose

@@ -49,7 +49,11 @@ IGST s. 2(6). All five must hold:
 1. You (the supplier) are in India.
 2. The client (the recipient) is outside India.
 3. The place of supply is outside India. For remote software work the
-   default rule applies: the client's location (IGST s. 13(2)).
+   default rule applies: the client's location (IGST s. 13(2)). If the
+   client also has an establishment in India, the recipient's location is
+   the establishment "most directly concerned with the receipt" (IGST s.
+   2(14)): work really received by an Indian entity or branch is not an
+   export. See `12-same-group-switch.md`.
 4. You are paid in **convertible foreign exchange, or in Indian rupees
    where the RBI permits**.
 5. You and the client are not branches of one entity.

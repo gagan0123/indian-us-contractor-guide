@@ -56,6 +56,9 @@ Collected from the chapters:
 9. Schedule FA: which platform balances to report (`06`).
 10. EPF: keep, withdraw or move; tax on interest after leaving (`07`).
 11. The W-8BEN treaty line (`04`).
+12. If the client is your former employer's group: contract of service
+    or for service; which establishment receives the work; RSUs still
+    vesting (`12`).
 
 Write each answer, with the date and who decided it, in the year's
 `NOTES.md`. Next year you inherit the decisions instead of re-asking.
