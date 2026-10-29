@@ -1,4 +1,4 @@
-# India contractor guide
+# Indian US Contractor Guide
 
 A guide, checklists and a records skeleton for a salaried professional in
 India who becomes an **independent contractor to a foreign client**, paid
