@@ -33,10 +33,12 @@ repository.
 | `guide/10-records-notices-loans.md` | Retention, folders, notices, proof of income |
 | `guide/11-working-with-a-ca.md` | Choosing a CA, what to send, the first-year questions |
 | `guide/12-same-group-switch.md` | Moving from the Indian entity's payroll to a contract with the US entity of the same group |
+| `guide/13-keeping-books.md` | The books route: rules, registers, the monthly routine, what the CA needs |
 | `guide/calendar.md` | Every date in the year |
 | `guide/glossary.md`, `guide/sources.md` | Terms; where each rule comes from |
-| `checklists/` | Setup, monthly, quarterly, year-end |
-| `templates/` | Export invoice, bank advice e-mail, CA brief, sales register |
+| `checklists/` | Setup, monthly, quarterly, year-end, and the books year-end pack for the CA and audit |
+| `templates/` | Export invoice, bank advice e-mail, CA brief, sales register, and the books registers (`templates/books/`) |
+| `tools/books.py` | Totals the books registers, computes depreciation, flags problems (Python 3, no packages) |
 | `years/2026-27/` | Folder skeleton and decision notes for one year |
 | `reference/` | Primary documents the guide quotes (CBIC Circular 263/09/2026-GST) |
 
@@ -44,7 +46,16 @@ Copy `years/2026-27/` to `years/2027-28/` each April.
 
 ## Accuracy
 
-Each rule cites the old and new section and a source. Law and portals
-change; points marked **"for your CA"** are judgement calls. This guide
-helps you understand and ask; it is not tax advice. Have a CA confirm
-anything that decides a figure on your return.
+**Written as at October 2026, for tax year 2026-27.** Each rule cites the
+old and new section and a source; a few rest on secondary sources and
+`guide/sources.md` says which. Law, rates, forms and portal screens change
+every year, and points marked **"for your CA"** are judgement calls. This
+guide helps you understand and ask; it is not tax, legal or financial
+advice. Have a CA confirm anything that decides a figure on your return.
+
+## Licence
+
+[Creative Commons Attribution 4.0 International](LICENSE) (CC BY 4.0):
+share and adapt it, with credit. The documents in `reference/` are
+official publications reproduced for reference and are not covered by
+this licence.
