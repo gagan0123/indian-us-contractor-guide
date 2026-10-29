@@ -36,7 +36,7 @@ Typical fees vary widely by city. Get the scope in writing.
 |---|---|
 | Once, at the start | PAN, Aadhaar, contract, W-8BEN, bank details, GST registration and LUT, last year's ITR and Form 16 |
 | Each quarter, before the 10th of the month after | the sales register, the quarter's invoices and remittance advices, any reverse-charge purchases; for advance tax, your income estimate |
-| After 31 March | `checklists/year-end.md`; `templates/ca-brief.md` as the cover note |
+| After 31 March | `checklists/year-end.md`; `templates/ca-brief.md` as the cover note; on the books route, the pack in `checklists/books-year-end.md` |
 
 ## Questions to settle in the first year
 

@@ -79,7 +79,7 @@ other four normally hold too.
 **Intermediary**: older articles warn that some services are taxed in
 India as "intermediary" services. That place-of-supply rule (IGST s.
 13(8)(b)) was deleted by the Finance Act, 2026 from 30 March 2026, and in
-any case a contractor writing software for a client supplies his own
+any case a contractor writing software for a client supplies their own
 service.
 
 **What proves condition 4, per payment**: the invoice; Deel's withdrawal

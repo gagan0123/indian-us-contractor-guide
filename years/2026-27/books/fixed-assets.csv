@@ -1,0 +1,2 @@
+purchase_date,put_to_use_date,particulars,vendor,invoice_no,block,cost_inr,gst_itc_claimed_inr,business_pct,paid_by,document,notes
+2026-08-03,2026-08-05,Laptop,Example Computers,EC-778,computer,160000.00,0,100,card,05-expenses/2026-08-03 - Laptop - Example Computers - EC-778.pdf,example row: delete before use

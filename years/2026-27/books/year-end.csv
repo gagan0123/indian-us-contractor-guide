@@ -1,0 +1,10 @@
+kind,item,counterparty,amount_inr,document,notes
+bank,Work account balance,Example Bank,0,,
+debtor,Invoice raised and unpaid on 31 March,,0,,
+creditor,Bill received and unpaid on 31 March,,0,,
+card_dues,Card dues outstanding,,0,,
+loan_taken,,,0,,with a confirmation from the lender
+loan_given,,,0,,with a confirmation from the borrower
+investment,,,0,,cost
+advance_tax,Advance tax paid for the year,,0,,
+provision,CA fee for the year,,0,,

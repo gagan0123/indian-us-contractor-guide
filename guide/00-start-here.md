@@ -64,8 +64,9 @@ page, then the chapters in the order your first month needs them.
 
 - `guide/` explains; read it once and come back to it.
 - `checklists/` are what you tick each month, quarter and year.
-- `templates/` are the invoice, the bank e-mail, the CA brief and the
-  sales register.
+- `templates/` are the invoice, the bank e-mail, the CA brief, the
+  sales register and, for the books route, the expense, asset and
+  year-end registers; `tools/books.py` totals them (`13-keeping-books.md`).
 - `years/` is a skeleton for your own documents. Click **Use this
   template** on GitHub to make your own **private** copy before adding
   anything real.

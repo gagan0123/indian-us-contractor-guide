@@ -17,6 +17,8 @@
 
 ## After 31 March: collect for the CA
 
+On the books route, use `checklists/books-year-end.md` as well.
+
 - [ ] Form 130 from the former employer (switch year)
 - [ ] AIS, TIS and Form 168 downloaded from the e-filing portal
 - [ ] Sales register for April to March, complete

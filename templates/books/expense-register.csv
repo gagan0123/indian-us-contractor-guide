@@ -1,0 +1,2 @@
+date,vendor,invoice_no,head,description,amount_inr,gst_inr,itc_claimed,paid_by,account,business_pct,document,notes
+2026-08-05,Example Broadband Ltd,INV-1001,Internet and telecom,Broadband August,1180.00,180.00,no,bank,work-account,100,05-expenses/2026-08-05 - Internet - Example Broadband - INV-1001.pdf,example row: delete before use

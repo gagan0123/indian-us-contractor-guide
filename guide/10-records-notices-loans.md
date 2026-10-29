@@ -29,6 +29,7 @@ years/2026-27/
   08-foreign-assets/  31 December and peak balances, broker statements
   09-insurance-investments/  premium receipts, PPF/NPS statements
   10-correspondence/  e-mails with the bank, Deel support, the CA, any notice
+  books/              books route only: expense, asset and year-end registers (`13-keeping-books.md`)
   sales-register.csv
   NOTES.md            decisions taken this year and why
 ```

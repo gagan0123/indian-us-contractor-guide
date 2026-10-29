@@ -41,22 +41,24 @@ shared with home life, only the business share counts (old s. 38(2), now
 s. 28(2)); write down how you worked the share out and keep it the same
 every year.
 
-| Head | Typical items | Business share |
+| Head (use exactly this name in the expense register) | Typical items | Business share |
 |---|---|---|
 | Internet and telecom | broadband, mobile plan | 100 % for a line used only for work; a fair share otherwise |
 | Electricity | the home-office share, or a separate office meter | by area or a separate meter |
 | Office rent or co-working | co-working seat, a rented office | 100 % |
-| Software, hosting, subscriptions | IDE, cloud, domains, SaaS, AI tools | 100 % for work tools |
+| Software, hosting and subscriptions | IDE, cloud, domains, SaaS, AI tools | 100 % for work tools |
 | Computer accessories and repairs | cables, keyboard, mouse, repairs below the capitalisation line | 100 % |
 | Repairs and maintenance | office electrical work, servicing office equipment | business share |
 | Office supplies and consumables | stationery, printer ink, small items | 100 % |
-| Business travel, conveyance and fuel | client visits, a vehicle used for work | business share |
+| Business travel | client visits, conferences | 100 % |
+| Conveyance and fuel | local travel, fuel for a vehicle used for work | business share |
 | Vehicle insurance | for a vehicle used for work | business share |
 | CA, legal and professional fees | the CA's fee, a lawyer reviewing the contract | 100 % |
 | Bank and platform charges | bank fees, platform or gateway charges | 100 % |
 | Client meals and promotion | entertaining a client, with a note of who and why | 100 % |
 | Salaries paid to helpers | an assistant, a bookkeeper | 100 %; paying a relative must be reasonable (old s. 40A(2), now s. 36(2)) |
 | Interest on a business loan | a loan taken for the business | 100 % |
+| Other | anything else wholly for the work | as applicable |
 
 **Paid in cash above ₹10,000 to one person in a day: not allowed** (old
 s. 40A(3), now s. 36(4)). Pay everything by bank or card.
@@ -83,7 +85,8 @@ in the first year (40 %), ₹38,400 in the second (40 % of ₹96,000), and so
 on. The same laptop bought in November gives ₹32,000 in the first year.
 
 The estimator on the guide page takes these heads and assets line by
-line and shows the books profit next to the presumptive one.
+line and shows the books profit next to the presumptive one. If you
+choose books, `13-keeping-books.md` has the registers and the routine.
 
 ## A quick test
 
