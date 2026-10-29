@@ -133,6 +133,12 @@ tr.sum td { font-weight: 600; }
 .field input:focus-visible, .line-input:focus-visible, .x:focus-visible { outline: 2px solid var(--stamp); outline-offset: 2px; }
 @media (min-width: 821px) { .outputs { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); align-self: start; } }
 
+.topline { display: flex; flex-wrap: wrap; gap: 10px 16px; justify-content: space-between; align-items: center; }
+.theme-switch { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; padding: 2px; background: var(--sheet); }
+.theme-switch button { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; padding: 5px 12px; border: 0; border-radius: 999px; background: transparent; color: var(--ink-soft); cursor: pointer; }
+.theme-switch button[aria-pressed="true"] { background: var(--stamp); color: var(--sheet); }
+.theme-switch button:focus-visible { outline: 2px solid var(--stamp); outline-offset: 2px; }
+
 /* calendar */
 .cal { display: grid; gap: 0; border: 1px solid var(--rule); background: var(--sheet); }
 .cal-row { display: grid; grid-template-columns: 128px minmax(0, 1fr) auto; gap: 14px; padding: 11px 16px; border-bottom: 1px solid var(--rule); align-items: baseline; }
@@ -192,7 +198,14 @@ footer { padding-block: 32px 0; border-top: 1px solid var(--rule); font-size: 14
 
   <main>
     <section class="hero" id="what-changes">
-      <span class="eyebrow">Tax year 2026-27 · Income-tax Act, 2025</span>
+      <div class="topline">
+        <span class="eyebrow">Tax year 2026-27 · Income-tax Act, 2025</span>
+        <div class="theme-switch" role="group" aria-label="Colour theme">
+          <button type="button" data-theme-set="system" aria-pressed="true">System</button>
+          <button type="button" data-theme-set="light" aria-pressed="false">Light</button>
+          <button type="button" data-theme-set="dark" aria-pressed="false">Dark</button>
+        </div>
+      </div>
       <h1>From payslip to invoice</h1>
       <p class="lede">You are moving from a salary to a contract with a US company, paid in rupees through Deel. In law you become a self-employed professional running a one-person export business. This page is the map; the companion repository holds the full chapters, checklists and templates.</p>
       <div class="swap" role="group" aria-label="What changes">
@@ -417,6 +430,20 @@ footer { padding-block: 32px 0; border-top: 1px solid var(--rule); font-size: 14
 <script>
 (function () {
   "use strict";
+  // ---------- theme switch (this browser only) ----------
+  const THEME_KEY = "indian-us-contractor-guide:theme";
+  function applyTheme(t) {
+    if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+    else document.documentElement.removeAttribute("data-theme");
+    document.querySelectorAll("[data-theme-set]").forEach(b => b.setAttribute("aria-pressed", b.dataset.themeSet === (t || "system") ? "true" : "false"));
+  }
+  let theme = "system";
+  try { theme = localStorage.getItem(THEME_KEY) || "system"; } catch (e) {}
+  applyTheme(theme);
+  document.querySelectorAll("[data-theme-set]").forEach(b => b.addEventListener("click", () => {
+    theme = b.dataset.themeSet; applyTheme(theme);
+    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+  }));
   // ---------- number helpers ----------
   const inr = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
   const fmt = n => "₹" + inr.format(Math.round(n));
