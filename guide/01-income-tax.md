@@ -94,6 +94,12 @@ the return**. Once you have professional income, that freedom narrows
 - You can come back to the new regime later, but **only once**: after
   that you can never opt out again while you have professional income.
 
+Your own EPF contribution from the salary months counts in 80C under the
+old regime (inside the same ₹1.5 lakh). Your employer's EPF contribution
+is not taxed unless employer EPF and NPS contributions together exceed
+₹7.5 lakh in the year; the employer's NPS contribution is deductible in
+both regimes (old s. 80CCD(2), now s. 124(1)-(2)).
+
 So treat the regime as a multi-year decision. Under the presumptive
 scheme your profit is already halved; the old regime's deductions (80C
 ₹1.5 lakh, now s. 123; 80D health insurance ₹25,000 for your family and

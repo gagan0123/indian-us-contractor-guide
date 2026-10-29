@@ -86,7 +86,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 .journey ul { margin: 0; padding-left: 18px; font-size: 15px; display: grid; gap: 4px; }
 
 /* estimator */
-.tool { background: var(--sheet); border: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); }
+.tool { background: var(--sheet); border: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
 @media (max-width: 820px) { .tool { grid-template-columns: minmax(0, 1fr); } }
 .inputs { padding: 22px; border-right: 1px solid var(--rule); display: grid; gap: 14px; align-content: start; }
 @media (max-width: 820px) { .inputs { border-right: 0; border-bottom: 1px solid var(--rule); } }
@@ -111,6 +111,27 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-fam
 .flags li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; align-items: baseline; }
 .pill { font-family: var(--font-mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; justify-self: start; }
 .pill.ok { color: var(--ok); } .pill.warn { color: var(--warn); } .pill.due { color: var(--due); } .pill.info { color: var(--stamp); }
+
+.form-head { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; }
+fieldset.grp { border: 0; border-top: 1px solid var(--rule); margin: 0; padding: 14px 0 0; display: grid; gap: 12px; min-width: 0; }
+fieldset.grp legend { font-family: var(--font-display); font-weight: 700; font-size: 15px; padding: 0 8px 0 0; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 14px; }
+@media (max-width: 560px) { .row2 { grid-template-columns: minmax(0, 1fr); } }
+.hint { color: var(--ink-soft); font-size: 13px; line-height: 1.45; }
+table.lines { font-size: 14px; }
+table.lines th, table.lines td { padding: 6px 6px; border-bottom: 1px solid var(--rule); }
+.line-input { width: 100%; min-width: 0; font-family: var(--font-mono); font-size: 14px; padding: 6px 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 2px; }
+select.line-input { font-family: var(--font-body); min-width: 150px; }
+input.line-input[type="text"].num { text-align: right; min-width: 92px; }
+input.line-input.pct { min-width: 56px; max-width: 72px; }
+input.line-input[type="date"] { min-width: 138px; }
+.x { border: 1px solid var(--rule); background: var(--sheet); color: var(--ink-soft); width: 28px; height: 28px; border-radius: 2px; cursor: pointer; font-size: 16px; line-height: 1; }
+.x:hover, .x:focus-visible { color: var(--due); border-color: var(--due); }
+.btn { justify-self: start; }
+tr.sum td { font-weight: 600; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.field input:focus-visible, .line-input:focus-visible, .x:focus-visible { outline: 2px solid var(--stamp); outline-offset: 2px; }
+@media (min-width: 821px) { .outputs { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 16px); align-self: start; } }
 
 /* calendar */
 .cal { display: grid; gap: 0; border: 1px solid var(--rule); background: var(--sheet); }
@@ -202,9 +223,8 @@ footer { padding-block: 32px 0; border-top: 1px solid var(--rule); font-size: 14
     <section id="same-group">
       <span class="eyebrow">If the client is your employer's group</span>
       <h2>Same company, new paper</h2>
-      <p>Often the move is from the Indian entity's payroll to a contract with the US entity of the same group: same work, same manager. Four things change.</p>
+      <p>Often the move is from the Indian entity's payroll to a contract with the US entity of the same group. Three things need care.</p>
       <div class="rules">
-        <div class="rule"><h3>Contract or employment?</h3><p>Substance decides, not the label: control over how and when you work, integration into the organisation, freedom to take other clients. If it is employment with the US company, the income is <b>salary</b>: no presumptive scheme, and no GST (Schedule III). <span class="ca">For your CA</span>: first question, before anything else.</p></div>
         <div class="rule"><h3>Who receives the work?</h3><p>An export needs the recipient outside India. Where a client has an Indian establishment, it is the one "most directly concerned with the receipt" (IGST s. 2(14)). Work really done for the Indian entity is <b>not an export</b>: 18 % GST. Contract with, bill and get paid by the US entity, for its business.</p></div>
         <div class="rule"><h3>RSUs and options</h3><p>Shares from awards granted while employed stay a <b>salary perquisite</b> even after you leave: s. 17(1)(d) covers the "former employer". Nobody withholds tax on them now, so add them to your advance tax. Ask the plan administrator in writing what happens to unvested awards.</p></div>
         <div class="rule"><h3>The Indian exit is still an exit</h3><p>Gratuity, leave encashment and Form 130 come from the Indian entity; EPF and group health cover stop. Get a service letter from the Indian entity and an engagement letter from the US entity together.</p></div>
@@ -226,21 +246,61 @@ footer { padding-block: 32px 0; border-top: 1px solid var(--rule); font-size: 14
     <section id="estimator">
       <span class="eyebrow">Run your numbers</span>
       <h2>Presumptive or books, old or new</h2>
-      <p>The estimator computes tax for tax year 2026-27 four ways and shows how much of each Deel credit to set aside. It follows the slabs, rebate, surcharge and cess of the 2025 Act as amended in 2026. It ignores special-rate capital gains and other edge cases, so use it to plan and let your CA compute the return.</p>
+      <p>The estimator computes tax for tax year 2026-27 four ways and shows how much of each Deel credit to set aside. Enter your salary months and EPF, the contract receipts, and, for the books route, your running expenses and the assets you buy for the work, which are depreciated rather than expensed. It follows the slabs, rebate, surcharge, cess and deduction caps of the 2025 Act as amended in 2026, and leaves out special-rate capital gains and other edge cases. Use it to plan; let your CA compute the return.</p>
       <div class="tool">
         <form class="inputs" id="est-form" autocomplete="off">
-          <span class="sample" id="sample-note">Example figures loaded: replace with yours</span>
-          <div class="field"><label for="salary">Salary this tax year (gross, ₹)</label><small>From April to your last working day</small><input type="text" inputmode="numeric" id="salary" value="8,00,000"></div>
-          <div class="field"><label for="tds">Salary TDS deducted by the employer (₹)</label><input type="text" inputmode="numeric" id="tds" value="0"></div>
-          <div class="field"><label for="receipts">Contract receipts expected this tax year (₹)</label><small>Everything invoiced from the first contract invoice to 31 March</small><input type="text" inputmode="numeric" id="receipts" value="40,00,000"></div>
-          <div class="field"><label for="expenses">Real business expenses, incl. depreciation (₹)</label><small>Laptop at 40 % a year, internet, software, co-working, CA fee</small><input type="text" inputmode="numeric" id="expenses" value="2,50,000"></div>
-          <div class="field"><label for="other">Other income: interest, rent, etc. (₹)</label><small>Include the value of RSUs or options vesting after you leave the Indian payroll: no one withholds tax on them now</small><input type="text" inputmode="numeric" id="other" value="50,000"></div>
-          <div class="field"><label for="ded">Old-regime deductions you would claim (₹)</label><small>80C up to 1.5 lakh, 80D health cover, NPS 50,000, home-loan interest</small><input type="text" inputmode="numeric" id="ded" value="2,25,000"></div>
-          <div class="field"><label class="toggle" for="foreign"><input type="checkbox" id="foreign"> I hold money or shares outside India</label><small>Deel balance or card, Wise, Payoneer, RSUs at a US broker</small></div>
+          <div class="form-head"><span class="sample" id="sample-note">Example figures loaded: replace with yours</span><button type="button" class="btn" id="est-reset">Reset to example</button></div>
+
+          <fieldset class="grp"><legend>Salary months (April to your last day)</legend>
+            <div class="row2">
+              <div class="field"><label for="salary">Gross salary (₹)</label><input type="text" inputmode="numeric" id="salary"></div>
+              <div class="field"><label for="tds">TDS the employer deducted (₹)</label><input type="text" inputmode="numeric" id="tds"></div>
+              <div class="field"><label for="epfEmp">Your EPF contribution (₹)</label><small>12 % of basic, from payslips. Counts in 80C (old regime)</small><input type="text" inputmode="numeric" id="epfEmp"></div>
+              <div class="field"><label for="epfEr">Employer's EPF contribution (₹)</label><small>Tax-free unless employer EPF and NPS together exceed ₹7.5 lakh</small><input type="text" inputmode="numeric" id="epfEr"></div>
+              <div class="field"><label for="npsEr">Employer's NPS contribution (₹)</label><small>Deductible in both regimes, up to 14 % (new) or 10 % (old) of basic</small><input type="text" inputmode="numeric" id="npsEr"></div>
+              <div class="field"><label for="hra">HRA exemption (₹, old regime only)</label><small>From your Form 130 or payslips</small><input type="text" inputmode="numeric" id="hra"></div>
+              <div class="field"><label for="pt">Professional tax paid (₹, old regime only)</label><input type="text" inputmode="numeric" id="pt"></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="grp"><legend>Contract</legend>
+            <div class="row2">
+              <div class="field"><label for="receipts">Contract receipts this tax year (₹)</label><small>Everything invoiced from the first invoice to 31 March</small><input type="text" inputmode="numeric" id="receipts"></div>
+              <div class="field"><label for="other">Other income (₹)</label><small>Interest, rent, and RSUs or options vesting after you leave the payroll (no one withholds on them now)</small><input type="text" inputmode="numeric" id="other"></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="grp"><legend>Running expenses, books route</legend>
+            <small class="hint">For the contract months only. Enter what you pay; the business-use share is what counts. If you are GST-registered and claim input credit, enter amounts without GST.</small>
+            <div class="table-scroll"><table class="lines"><thead><tr><th>Category</th><th class="num">Amount (₹)</th><th class="num">Business %</th><th><span class="sr">Remove</span></th></tr></thead><tbody id="exp-rows"></tbody></table></div>
+            <button type="button" class="btn" id="exp-add">Add an expense</button>
+          </fieldset>
+
+          <fieldset class="grp"><legend>Assets bought for the work, books route</legend>
+            <small class="hint">Anything that lasts beyond the year: a laptop, monitor, desk, chair, AC, inverter. A common CA practice is to capitalise items over about ₹10,000 or with a warranty longer than a year. Used for less than 180 days in the year (put to use after 3 October 2026) means half the rate (s. 33(4)).</small>
+            <div class="table-scroll"><table class="lines"><thead><tr><th>Item</th><th>Block</th><th class="num">Cost (₹)</th><th>Put to use</th><th class="num">Business %</th><th><span class="sr">Remove</span></th></tr></thead><tbody id="asset-rows"></tbody></table></div>
+            <button type="button" class="btn" id="asset-add">Add an asset</button>
+          </fieldset>
+
+          <fieldset class="grp"><legend>Old-regime deductions</legend>
+            <div class="row2">
+              <div class="field"><label for="c80">Other 80C (₹)</label><small>PPF, ELSS, life cover, home-loan principal, children's tuition. With your EPF, capped at ₹1.5 lakh (s. 123)</small><input type="text" inputmode="numeric" id="c80"></div>
+              <div class="field"><label for="nps1b">Your own NPS (₹)</label><small>Extra deduction up to ₹50,000 (s. 124(3))</small><input type="text" inputmode="numeric" id="nps1b"></div>
+              <div class="field"><label for="d80self">Health insurance: you and family (₹)</label><small>Up to ₹25,000 (s. 126)</small><input type="text" inputmode="numeric" id="d80self"></div>
+              <div class="field"><label for="d80par">Health insurance: parents (₹)</label><small>Up to ₹25,000, or ₹50,000 if a parent is 60 or over</small><input type="text" inputmode="numeric" id="d80par"></div>
+              <div class="field"><label for="homeInt">Home-loan interest, self-occupied (₹)</label><small>Up to ₹2 lakh</small><input type="text" inputmode="numeric" id="homeInt"></div>
+              <div class="field"><label class="toggle" for="parSenior"><input type="checkbox" id="parSenior"> A parent is 60 or over</label></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="grp"><legend>Abroad</legend>
+            <div class="field"><label class="toggle" for="foreign"><input type="checkbox" id="foreign"> I hold money or shares outside India</label><small>Deel balance or card, Wise, Payoneer, RSUs at a US broker</small></div>
+          </fieldset>
         </form>
         <div class="outputs" aria-live="polite">
           <div class="verdict" id="verdict"><strong>…</strong><span></span></div>
           <div class="grid4" id="grid4"></div>
+          <div class="table-scroll"><table><thead><tr><th>Books route, worked out</th><th class="num">₹</th></tr></thead><tbody id="books"></tbody></table></div>
           <div class="table-scroll"><table><thead><tr><th>Advance tax, on the cheaper option</th><th class="num">Cumulative</th><th class="num">Pay this time</th></tr></thead><tbody id="adv"></tbody></table></div>
           <ul class="flags" id="flags"></ul>
         </div>
@@ -391,95 +451,189 @@ footer { padding-block: 32px 0; border-top: 1px solid var(--rule); font-size: 14
     return t * 1.04;                                            // health and education cess
   }
 
-  function compute(v) {
-    const out = {};
+  // ---------- estimator inputs ----------
+  const EXP_CATS = [
+    "Internet and telecom", "Electricity (office share)", "Office rent or co-working",
+    "Software, hosting and subscriptions", "Computer accessories and repairs", "Repairs and maintenance",
+    "Office supplies and consumables", "Business travel", "Conveyance and fuel", "Vehicle insurance",
+    "CA, legal and professional fees", "Bank and platform charges", "Client meals and promotion",
+    "Salaries paid to helpers", "Interest on a business loan", "Other"
+  ];
+  const BLOCKS = {
+    computer: { label: "Computers and software, 40 %", rate: 0.40 },
+    furniture: { label: "Furniture and fittings, 10 %", rate: 0.10 },
+    plant: { label: "Plant and machinery, 15 %", rate: 0.15 }
+  };
+  const FULL_RATE_BY = "2026-10-03";   // put to use on or before: 180+ days in the tax year ending 31 March 2027
+  const EXAMPLE = {
+    salary: "8,00,000", tds: "0", epfEmp: "38,400", epfEr: "38,400", npsEr: "0", hra: "0", pt: "800",
+    receipts: "40,00,000", other: "50,000",
+    c80: "60,000", nps1b: "0", d80self: "25,000", d80par: "0", homeInt: "0", parSenior: false, foreign: false,
+    exp: [
+      ["Internet and telecom", "18,000", "100"],
+      ["Electricity (office share)", "24,000", "40"],
+      ["Software, hosting and subscriptions", "36,000", "100"],
+      ["CA, legal and professional fees", "30,000", "100"],
+      ["Bank and platform charges", "2,000", "100"],
+    ],
+    assets: [
+      ["Laptop", "computer", "1,60,000", "2026-08-05", "100"],
+      ["Desk and chair", "furniture", "45,000", "2026-08-05", "100"],
+      ["Inverter and battery", "plant", "40,000", "2026-11-20", "100"],
+    ],
+  };
+  const FIELDS = ["salary", "tds", "epfEmp", "epfEr", "npsEr", "hra", "pt", "receipts", "other", "c80", "nps1b", "d80self", "d80par", "homeInt"];
+  const CHECKS_F = ["parSenior", "foreign"];
+  const EST_KEY = "indian-us-contractor-guide:estimator";
+  const clone = o => JSON.parse(JSON.stringify(o));
+  let st = clone(EXAMPLE), isExample = true;
+  try { const saved = JSON.parse(localStorage.getItem(EST_KEY) || "null"); if (saved && saved.exp) { st = saved; isExample = false; } } catch (e) {}
+  const saveEst = () => { try { localStorage.setItem(EST_KEY, JSON.stringify(st)); } catch (e) {} };
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  function drawRows() {
+    $("exp-rows").innerHTML = st.exp.map((r, i) => `<tr>
+      <td><select class="line-input" id="exp-cat-${i}" aria-label="Category">${EXP_CATS.map(c => `<option${c === r[0] ? " selected" : ""}>${esc(c)}</option>`).join("")}</select></td>
+      <td><input class="line-input num" type="text" inputmode="numeric" id="exp-amt-${i}" aria-label="Amount" value="${esc(r[1])}"></td>
+      <td><input class="line-input num pct" type="text" inputmode="numeric" id="exp-use-${i}" aria-label="Business use percent" value="${esc(r[2])}"></td>
+      <td><button type="button" class="x" data-del-exp="${i}" aria-label="Remove this expense">×</button></td></tr>`).join("");
+    $("asset-rows").innerHTML = st.assets.map((r, i) => `<tr>
+      <td><input class="line-input" type="text" id="as-name-${i}" aria-label="Item" value="${esc(r[0])}"></td>
+      <td><select class="line-input" id="as-block-${i}" aria-label="Depreciation block">${Object.entries(BLOCKS).map(([k, b]) => `<option value="${k}"${k === r[1] ? " selected" : ""}>${b.label}</option>`).join("")}</select></td>
+      <td><input class="line-input num" type="text" inputmode="numeric" id="as-cost-${i}" aria-label="Cost" value="${esc(r[2])}"></td>
+      <td><input class="line-input" type="date" id="as-date-${i}" aria-label="Put to use on" min="2026-04-01" max="2027-03-31" value="${esc(r[3])}"></td>
+      <td><input class="line-input num pct" type="text" inputmode="numeric" id="as-use-${i}" aria-label="Business use percent" value="${esc(r[4])}"></td>
+      <td><button type="button" class="x" data-del-asset="${i}" aria-label="Remove this asset">×</button></td></tr>`).join("");
+  }
+  function fillForm() {
+    FIELDS.forEach(f => { $(f).value = st[f]; });
+    CHECKS_F.forEach(f => { $(f).checked = !!st[f]; });
+    drawRows();
+    $("sample-note").textContent = isExample ? "Example figures loaded: replace with yours" : "Your figures, saved in this browser";
+  }
+  function readForm() {
+    FIELDS.forEach(f => { st[f] = $(f).value; });
+    CHECKS_F.forEach(f => { st[f] = $(f).checked; });
+    st.exp = st.exp.map((_, i) => [$("exp-cat-" + i).value, $("exp-amt-" + i).value, $("exp-use-" + i).value]);
+    st.assets = st.assets.map((_, i) => [$("as-name-" + i).value, $("as-block-" + i).value, $("as-cost-" + i).value, $("as-date-" + i).value, $("as-use-" + i).value]);
+  }
+  const pct = s => Math.min(100, Math.max(0, parse(s))) / 100;
+
+  // ---------- estimator maths ----------
+  function compute() {
+    const n = Object.fromEntries(FIELDS.map(f => [f, parse(st[f])]));
+    const expenses = st.exp.reduce((t, r) => t + parse(r[1]) * pct(r[2]), 0);
+    const assets = st.assets.map(r => {
+      const b = BLOCKS[r[1]] || BLOCKS.computer, cost = parse(r[2]) * pct(r[4]);
+      const half = !!r[3] && r[3] > FULL_RATE_BY;
+      return { name: r[0], cost, dep: cost * b.rate * (half ? 0.5 : 1), half };
+    });
+    const dep = assets.reduce((t, a) => t + a.dep, 0);
+    const erExcess = Math.max(0, n.epfEr + n.npsEr - 7.5 * L);      // employer retirement contributions above ₹7.5 lakh are taxable
+    const out = { _n: n, _expenses: expenses, _dep: dep, _assets: assets, _booksProfit: n.receipts - expenses - dep };
     for (const route of ["presumptive", "books"]) {
       for (const regime of ["new", "old"]) {
         const key = route + "-" + regime;
-        if (route === "presumptive" && v.receipts > 75*L) { out[key] = null; continue; }
-        const sd = v.salary > 0 ? Math.min(v.salary, regime === "new" ? 75000 : 50000) : 0;
-        const profit = route === "presumptive" ? v.receipts * 0.5 : Math.max(0, v.receipts - v.expenses);
-        let ti = Math.max(0, v.salary - sd) + profit + v.other;
-        if (regime === "old") ti = Math.max(0, ti - v.ded);
+        if (route === "presumptive" && n.receipts > 75 * L) { out[key] = null; continue; }
+        let sal = n.salary + erExcess;
+        if (sal > 0) sal -= Math.min(n.salary, regime === "new" ? 75000 : 50000);
+        if (regime === "old") sal -= n.hra + n.pt;
+        const profit = route === "presumptive" ? n.receipts * 0.5 : out._booksProfit;
+        let gross = Math.max(0, sal) + profit + n.other;
+        let ded = Math.min(n.npsEr, gross);
+        if (regime === "old") {
+          ded += Math.min(1.5 * L, n.epfEmp + n.c80) + Math.min(50000, n.nps1b) + Math.min(25000, n.d80self)
+               + Math.min(st.parSenior ? 50000 : 25000, n.d80par) + Math.min(2 * L, n.homeInt);
+        }
+        const ti = Math.max(0, gross - ded);
         out[key] = { ti, tax: totalTax(ti, regime), route, regime };
       }
     }
     return out;
   }
 
-  const ids = ["salary", "tds", "receipts", "expenses", "other", "ded"];
-  const els = Object.fromEntries(ids.map(i => [i, document.getElementById(i)]));
-  const foreign = document.getElementById("foreign");
   const label = { "presumptive-new": "Presumptive · new regime", "presumptive-old": "Presumptive · old regime", "books-new": "Books · new regime", "books-old": "Books · old regime" };
 
   function render() {
-    const v = Object.fromEntries(ids.map(i => [i, parse(els[i].value)]));
-    const r = compute(v);
-    const opts = Object.entries(r).filter(([, x]) => x);
+    const r = compute(), n = r._n;
+    const opts = Object.keys(label).filter(k => r[k]).map(k => [k, r[k]]);
     opts.sort((a, b) => a[1].tax - b[1].tax);
     const [bestKey, best] = opts[0];
 
-    // four cells
-    const grid = document.getElementById("grid4");
+    const grid = $("grid4");
     grid.innerHTML = "";
     for (const k of Object.keys(label)) {
       const x = r[k], c = document.createElement("div");
       c.className = "cell" + (k === bestKey ? " best" : "") + (x ? "" : " na");
       c.innerHTML = `<span class="k">${label[k]}</span><span class="v">${x ? fmt(x.tax) : "Not available above ₹75 lakh"}</span>` +
-        (x ? `<span class="k">income ${fmt(x.ti)}</span>` : "");
+        (x ? `<span class="k">taxable income ${fmt(x.ti)}</span>` : "");
       grid.appendChild(c);
     }
 
-    const net = Math.max(0, best.tax - v.tds);
-    const pct = v.receipts > 0 ? net / v.receipts * 100 : 0;
-    const vd = document.getElementById("verdict");
-    const saving = opts.length > 1 ? opts[opts.length - 1][1].tax - best.tax : 0;
-    vd.querySelector("strong").textContent = label[bestKey] + ": " + fmt(best.tax);
-    vd.querySelector("span").textContent = v.receipts > 0
-      ? `After salary TDS, ${fmt(net)} is yours to pay as advance tax: set aside about ${pct.toFixed(1)} % of every Deel credit. The costliest of the four options would be ${fmt(saving)} more.`
+    const net = Math.max(0, best.tax - n.tds);
+    const share = n.receipts > 0 ? net / n.receipts * 100 : 0;
+    const worst = opts[opts.length - 1][1].tax;
+    $("verdict").querySelector("strong").textContent = label[bestKey] + ": " + fmt(best.tax);
+    $("verdict").querySelector("span").textContent = n.receipts > 0
+      ? `After salary TDS, ${fmt(net)} is yours to pay as advance tax: set aside about ${share.toFixed(1)} % of every Deel credit. The costliest of the four options would be ${fmt(worst - best.tax)} more.`
       : "Enter your expected contract receipts.";
 
+    // books breakdown
+    const ratio = n.receipts > 0 ? (r._expenses + r._dep) / n.receipts * 100 : 0;
+    const rows = [["Receipts", n.receipts], ["Running expenses, business share", -r._expenses]];
+    r._assets.filter(a => a.cost > 0).forEach(a => rows.push([`Depreciation: ${a.name || "asset"}${a.half ? " (half rate, under 180 days)" : ""}`, -a.dep]));
+    rows.push(["Profit on the books route", r._booksProfit]);
+    rows.push(["Profit on the presumptive route (50 %)", n.receipts * 0.5]);
+    $("books").innerHTML = rows.map(([k, v], i) => `<tr${i === rows.length - 2 || i === rows.length - 1 ? ' class="sum"' : ""}><td>${esc(k)}</td><td class="num">${v < 0 ? "− " + fmt(-v) : fmt(v)}</td></tr>`).join("")
+      + `<tr><td colspan="2" class="note">Expenses and depreciation are ${ratio.toFixed(1)} % of receipts. Books beat presumptive only above 50 %.${r._booksProfit < 0 ? " A books loss is set to income above; ask your CA how it carries forward." : ""}</td></tr>`;
+
     // advance tax
-    const adv = document.getElementById("adv");
-    adv.innerHTML = "";
-    const rows = net < 10000 ? [["No advance tax: the tax after TDS is under ₹10,000 (s. 404)", null, null]]
+    const adv = $("adv");
+    const sched = net < 10000 ? [["No advance tax: the tax after TDS is under ₹10,000 (s. 404)", null, null]]
       : best.route === "presumptive"
         ? [["15 March 2027 (whole amount, s. 408(2))", 1, 1]]
-        : [["15 June 2026", .15], ["15 September 2026", .45], ["15 December 2026", .75], ["15 March 2027", 1]].map((x, i, a) => [x[0], x[1], x[1] - (i ? a[i-1][1] : 0)]);
-    for (const [d, cum, now] of rows) {
-      const tr = document.createElement("tr");
-      tr.innerHTML = cum === null ? `<td colspan="3">${d}</td>` : `<td>${d}</td><td class="num">${fmt(net * cum)} · ${Math.round(cum*100)} %</td><td class="num">${fmt(net * now)}</td>`;
-      adv.appendChild(tr);
-    }
-    if (best.route === "presumptive" && net >= 10000) {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `<td colspan="3" class="note">The presumptive route may pay it all by 15 March, but paying about ${fmt(net / 4)} each quarter keeps it from being spent.</td>`;
-      adv.appendChild(tr);
-    }
+        : [["15 June 2026", .15], ["15 September 2026", .45], ["15 December 2026", .75], ["15 March 2027", 1]].map((x, i, a) => [x[0], x[1], x[1] - (i ? a[i - 1][1] : 0)]);
+    adv.innerHTML = sched.map(([d, cum, now]) => cum === null ? `<tr><td colspan="3">${d}</td></tr>`
+      : `<tr><td>${d}</td><td class="num">${fmt(net * cum)} · ${Math.round(cum * 100)} %</td><td class="num">${fmt(net * now)}</td></tr>`).join("")
+      + (best.route === "presumptive" && net >= 10000 ? `<tr><td colspan="3" class="note">The presumptive route may pay it all by 15 March, but paying about ${fmt(net / 4)} each quarter keeps it from being spent.</td></tr>` : "");
 
     // flags
     const flags = [];
     const books = best.route === "books";
-    const itr = (books || foreign.checked || best.ti > 50*L) ? "ITR-3" : "ITR-4";
-    flags.push(["info", "Return", `${itr}${foreign.checked ? " (foreign assets need Schedule FA, which ITR-4 lacks)" : ""}, due ${books && v.receipts > 50*L ? "31 October 2027 with a tax audit (report by 30 September)" : "31 August 2027"}.`]);
+    const itr = (books || st.foreign || best.ti > 50 * L) ? "ITR-3" : "ITR-4";
+    flags.push(["info", "Return", `${itr}${st.foreign ? " (foreign assets need Schedule FA, which ITR-4 lacks)" : ""}, due ${books && n.receipts > 50 * L ? "31 October 2027 with a tax audit (report by 30 September)" : "31 August 2027"}.`]);
     if (best.regime === "old") flags.push(["due", "Form 44", "The old regime needs Form 44 filed by the return due date, and you can switch back to the new regime only once."]);
-    if (v.receipts > 20*L) flags.push(["due", "GST", `Receipts above ₹20 lakh: registration is mandatory within 30 days of crossing it. File the LUT before the next invoice.`]);
-    else if (v.receipts > 0) flags.push(["ok", "GST", "Under ₹20 lakh: registration is optional. Count only contract fees, not salary."]);
-    if (books && v.receipts > 50*L) flags.push(["warn", "Audit", "Books with receipts above ₹50 lakh need a tax audit (s. 63)."]);
-    if (v.receipts > 75*L) flags.push(["warn", "Limit", "Above ₹75 lakh the presumptive scheme is closed: books and an audit."]);
-    if (v.expenses > v.receipts * 0.5 && v.receipts > 0) flags.push(["info", "Expenses", "Your expenses exceed half your receipts, so books can beat the 50 % presumption."]);
-    const ul = document.getElementById("flags");
-    ul.innerHTML = "";
-    for (const [cls, k, t] of flags) { const li = document.createElement("li"); li.innerHTML = `<span class="pill ${cls}">${k}</span><span>${t}</span>`; ul.appendChild(li); }
+    if (n.receipts > 20 * L) flags.push(["due", "GST", "Receipts above ₹20 lakh: registration is mandatory within 30 days of crossing it. File the LUT before the next invoice."]);
+    else if (n.receipts > 0) flags.push(["ok", "GST", "Under ₹20 lakh: registration is optional. Count only contract fees, not salary."]);
+    if (books && n.receipts > 50 * L) flags.push(["warn", "Audit", "Books with receipts above ₹50 lakh need a tax audit (s. 63)."]);
+    if (n.receipts > 75 * L) flags.push(["warn", "Limit", "Above ₹75 lakh the presumptive scheme is closed: books and an audit."]);
+    if (n.epfEr + n.npsEr > 7.5 * L) flags.push(["warn", "EPF", "Employer EPF and NPS above ₹7.5 lakh: the excess is taxed as salary, as added above."]);
+    if (n.epfEmp + n.c80 > 1.5 * L) flags.push(["info", "80C", `Your EPF and other 80C come to ${fmt(n.epfEmp + n.c80)}; only ₹1,50,000 counts.`]);
+    if (r._assets.some(a => a.cost > 0) && !books) flags.push(["info", "Assets", "On the presumptive route the assets' depreciation is deemed claimed, so their written-down value still falls each year."]);
+    $("flags").innerHTML = flags.map(([cls, k, t]) => `<li><span class="pill ${cls}">${k}</span><span>${t}</span></li>`).join("");
   }
 
-  let touched = false;
-  document.getElementById("est-form").addEventListener("input", () => {
-    if (!touched) { touched = true; document.getElementById("sample-note").textContent = "Your figures"; }
-    render();
+  function changed() { readForm(); isExample = false; $("sample-note").textContent = "Your figures, saved in this browser"; saveEst(); render(); }
+  const form = $("est-form");
+  form.addEventListener("input", changed);
+  form.addEventListener("change", changed);
+  form.addEventListener("submit", e => e.preventDefault());
+  form.addEventListener("focusout", e => {
+    const t = e.target;
+    if (t.matches && t.matches('input[inputmode="numeric"]:not(.pct)')) { const v = parse(t.value); t.value = v ? inr.format(v) : "0"; readForm(); saveEst(); }
   });
-  document.getElementById("est-form").addEventListener("submit", e => e.preventDefault());
-  ids.forEach(i => els[i].addEventListener("blur", () => { const n = parse(els[i].value); els[i].value = n ? inr.format(n) : "0"; }));
+  form.addEventListener("click", e => {
+    const t = e.target.closest("button"); if (!t) return;
+    if (t.id === "exp-add") { readForm(); st.exp.push(["Other", "0", "100"]); }
+    else if (t.id === "asset-add") { readForm(); st.assets.push(["", "computer", "0", "2026-08-01", "100"]); }
+    else if (t.dataset.delExp !== undefined) { readForm(); st.exp.splice(+t.dataset.delExp, 1); }
+    else if (t.dataset.delAsset !== undefined) { readForm(); st.assets.splice(+t.dataset.delAsset, 1); }
+    else if (t.id === "est-reset") { st = clone(EXAMPLE); isExample = true; try { localStorage.removeItem(EST_KEY); } catch (e2) {} fillForm(); render(); return; }
+    else return;
+    isExample = false; saveEst(); drawRows(); render();
+  });
+  fillForm();
   render();
 
   // ---------- calendar ----------

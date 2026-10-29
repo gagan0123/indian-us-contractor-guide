@@ -70,6 +70,16 @@ receipt of the supply".
   sharper still, because the recipient legally has an establishment in
   India.
 
+**The common clean case: the work moves with you.** Group companies
+often split by market: the US entity serves US clients, the Indian entity
+serves Indian clients. If the switch happens because your work moves to
+the US entity's clients, the US entity is the establishment most directly
+concerned with receiving your service, and the export holds. Keep it
+that way: if you are later asked to help on Indian-entity projects, that
+work is supplied to an Indian recipient and is not an export; raise it
+before you do it, and have it either billed separately with GST or kept
+out of your contract.
+
 What to do: make sure the contract is with, and billed to, the **US
 entity**, describes services for the US entity's business, and is paid by
 it; know who your manager reports to and which entity's budget carries
