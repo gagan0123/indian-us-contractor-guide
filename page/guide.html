@@ -1,0 +1,575 @@
+<title>Payslip to Invoice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a filed register. Sticky chapter index on the left at desktop, one column on phones;
+   the estimator and checklist are the working surfaces, set off as the only boxed objects. */
+:root {
+  --paper: #f2f4ef;      /* government-form paper, faint green-grey */
+  --sheet: #fbfcf9;      /* working surfaces */
+  --ink: #15233a;        /* register ink */
+  --ink-soft: #4a5872;
+  --rule: #cfd5cc;
+  --stamp: #5a3ea6;      /* rubber-stamp violet: the accent */
+  --stamp-wash: #ebe6f7;
+  --due: #b43a5e;        /* deadlines */
+  --ok: #2c7a55;
+  --warn: #9a6a12;
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10151f; --sheet: #171e2b; --ink: #e4e8ef; --ink-soft: #a3adbf; --rule: #2c3547;
+    --stamp: #a993f0; --stamp-wash: #262040; --due: #f0809f; --ok: #6fcf9f; --warn: #e2b55a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10151f; --sheet: #171e2b; --ink: #e4e8ef; --ink-soft: #a3adbf; --rule: #2c3547;
+  --stamp: #a993f0; --stamp-wash: #262040; --due: #f0809f; --ok: #6fcf9f; --warn: #e2b55a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; padding-block: 40px 80px; }
+@media (max-width: 900px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: 24px 56px; } nav.index { display: none; } }
+nav.index { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-family: var(--font-display); font-size: 14px; }
+nav.index p { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); margin: 0 0 12px; }
+nav.index ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; counter-reset: ch; }
+nav.index a { display: block; padding: 5px 10px; border-left: 2px solid var(--rule); color: var(--ink-soft); text-decoration: none; }
+nav.index a:hover, nav.index a:focus-visible { color: var(--ink); border-left-color: var(--stamp); }
+main { min-width: 0; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(38px, 6vw, 64px); font-weight: 800; letter-spacing: -.02em; }
+h2 { font-size: clamp(26px, 3.4vw, 34px); font-weight: 700; letter-spacing: -.01em; }
+h3 { font-size: 19px; font-weight: 700; }
+p { margin: 0; max-width: 66ch; }
+a { color: var(--stamp); }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--stamp); }
+.mono { font-family: var(--font-mono); font-size: .88em; }
+section { display: grid; gap: 18px; padding-block: 48px; border-top: 1px solid var(--rule); scroll-margin-top: 16px; }
+section:first-of-type { border-top: 0; padding-top: 8px; }
+.lede { font-size: 20px; color: var(--ink-soft); max-width: 60ch; }
+
+/* hero */
+.hero { display: grid; gap: 22px; }
+.swap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border: 1px solid var(--rule); background: var(--sheet); }
+.swap > div { padding: 18px 20px; display: grid; gap: 6px; min-width: 0; }
+.swap > div + div { border-left: 1px dashed var(--rule); }
+.swap .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); }
+.swap .v { font-family: var(--font-display); font-weight: 700; font-size: 22px; }
+.swap .was .v { color: var(--ink-soft); text-decoration: line-through; text-decoration-thickness: 1px; }
+.swap .now .v { color: var(--stamp); }
+@media (max-width: 560px) { .swap { grid-template-columns: minmax(0, 1fr); } .swap > div + div { border-left: 0; border-top: 1px dashed var(--rule); } }
+.stamp { display: inline-block; justify-self: start; border: 2px solid var(--stamp); color: var(--stamp); font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; transform: rotate(-2deg); border-radius: 3px; }
+
+/* compare table */
+.table-scroll { overflow-x: auto; border: 1px solid var(--rule); background: var(--sheet); }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-family: var(--font-mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; background: var(--paper); }
+tr:last-child td { border-bottom: 0; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: var(--font-mono); font-size: 14px; white-space: nowrap; }
+
+/* journey */
+.journey { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0; border: 1px solid var(--rule); background: var(--sheet); }
+.journey > div { padding: 18px; display: grid; gap: 8px; align-content: start; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); min-width: 0; }
+.journey .when { font-family: var(--font-mono); font-size: 12px; color: var(--stamp); }
+.journey ul { margin: 0; padding-left: 18px; font-size: 15px; display: grid; gap: 4px; }
+
+/* estimator */
+.tool { background: var(--sheet); border: 1px solid var(--rule); display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); }
+@media (max-width: 820px) { .tool { grid-template-columns: minmax(0, 1fr); } }
+.inputs { padding: 22px; border-right: 1px solid var(--rule); display: grid; gap: 14px; align-content: start; }
+@media (max-width: 820px) { .inputs { border-right: 0; border-bottom: 1px solid var(--rule); } }
+.field { display: grid; gap: 4px; }
+.field label { font-family: var(--font-display); font-size: 14px; font-weight: 500; }
+.field small { color: var(--ink-soft); font-size: 13px; line-height: 1.4; }
+.field input[type="text"], .field input[type="number"] { font-family: var(--font-mono); font-size: 16px; padding: 8px 10px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); width: 100%; border-radius: 2px; }
+.field input:focus-visible, button:focus-visible, .check input:focus-visible { outline: 2px solid var(--stamp); outline-offset: 2px; }
+.toggle { display: flex; gap: 8px; align-items: center; font-size: 15px; }
+.toggle input { width: 18px; height: 18px; accent-color: var(--stamp); }
+.sample { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--warn); }
+.outputs { padding: 22px; display: grid; gap: 20px; min-width: 0; align-content: start; }
+.verdict { display: grid; gap: 6px; padding: 16px 18px; background: var(--stamp-wash); border-left: 3px solid var(--stamp); }
+.verdict strong { font-family: var(--font-display); font-size: 20px; }
+.grid4 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.cell { background: var(--sheet); padding: 14px 16px; display: grid; gap: 4px; min-width: 0; }
+.cell .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+.cell .v { font-family: var(--font-mono); font-size: 20px; font-variant-numeric: tabular-nums; }
+.cell.best { box-shadow: inset 0 0 0 2px var(--stamp); }
+.cell.na .v { color: var(--ink-soft); font-size: 15px; }
+.flags { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; font-size: 15px; }
+.flags li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.pill { font-family: var(--font-mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; justify-self: start; }
+.pill.ok { color: var(--ok); } .pill.warn { color: var(--warn); } .pill.due { color: var(--due); } .pill.info { color: var(--stamp); }
+
+/* calendar */
+.cal { display: grid; gap: 0; border: 1px solid var(--rule); background: var(--sheet); }
+.cal-row { display: grid; grid-template-columns: 128px minmax(0, 1fr) auto; gap: 14px; padding: 11px 16px; border-bottom: 1px solid var(--rule); align-items: baseline; }
+.cal-row:last-child { border-bottom: 0; }
+.cal-row .d { font-family: var(--font-mono); font-size: 14px; font-variant-numeric: tabular-nums; }
+.cal-row .what { font-size: 15px; }
+.cal-row .law { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+.cal-row.past { color: var(--ink-soft); }
+.cal-row.past .d { text-decoration: line-through; text-decoration-thickness: 1px; }
+.cal-row.next { background: var(--stamp-wash); box-shadow: inset 3px 0 0 var(--due); }
+.cal-row.big .what { font-weight: 600; }
+@media (max-width: 560px) { .cal-row { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button, .btn { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; padding: 6px 12px; border: 1px solid var(--rule); background: var(--sheet); color: var(--ink); cursor: pointer; border-radius: 2px; }
+.filters button[aria-pressed="true"] { border-color: var(--stamp); color: var(--stamp); background: var(--stamp-wash); }
+
+/* checklist */
+.checks { display: grid; gap: 22px; }
+.checks fieldset { border: 1px solid var(--rule); background: var(--sheet); margin: 0; padding: 16px 18px; display: grid; gap: 4px; min-width: 0; }
+.checks legend { font-family: var(--font-display); font-weight: 700; padding: 0 6px; }
+.check { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 10px; align-items: start; padding: 6px 0; font-size: 15px; }
+.check input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--stamp); }
+.check .ref { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+.check input:checked + span { color: var(--ink-soft); text-decoration: line-through; text-decoration-thickness: 1px; }
+.progress { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-family: var(--font-mono); font-size: 13px; }
+.bar { flex: 1 1 200px; height: 8px; background: var(--rule); border-radius: 4px; overflow: hidden; }
+.bar > i { display: block; height: 100%; width: 0; background: var(--stamp); transition: width .25s ease; }
+
+/* rule cards */
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.rule { display: grid; gap: 8px; align-content: start; padding-top: 12px; border-top: 2px solid var(--ink); min-width: 0; }
+.rule ol, .rule ul { margin: 0; padding-left: 20px; font-size: 15px; display: grid; gap: 4px; }
+.rule p { font-size: 15px; }
+.note { font-size: 15px; color: var(--ink-soft); border-left: 2px solid var(--rule); padding-left: 14px; }
+.ca { font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--due); }
+footer { padding-block: 32px 0; border-top: 1px solid var(--rule); font-size: 14px; color: var(--ink-soft); display: grid; gap: 8px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <nav class="index" aria-label="Chapters">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#what-changes">What changes</a></li>
+      <li><a href="#first-year">Your first year</a></li>
+      <li><a href="#estimator">Tax estimator</a></li>
+      <li><a href="#gst">GST and the LUT</a></li>
+      <li><a href="#deel">Deel and the bank</a></li>
+      <li><a href="#calendar">Calendar</a></li>
+      <li><a href="#checklist">Setup checklist</a></li>
+      <li><a href="#protection">Protection</a></li>
+      <li><a href="#sections">Old and new sections</a></li>
+      <li><a href="#about">About this guide</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <section class="hero" id="what-changes">
+      <span class="eyebrow">Tax year 2026-27 · Income-tax Act, 2025</span>
+      <h1>From payslip to invoice</h1>
+      <p class="lede">You are moving from a salary to a contract with a US company, paid in rupees through Deel. In law you become a self-employed professional running a one-person export business. This page is the map; the companion repository holds the full chapters, checklists and templates.</p>
+      <div class="swap" role="group" aria-label="What changes">
+        <div class="was"><span class="k">Taxed on</span><span class="v">Salary</span></div>
+        <div class="now"><span class="k">Taxed on</span><span class="v">Profit of your profession</span></div>
+        <div class="was"><span class="k">Tax paid by</span><span class="v">Employer, monthly TDS</span></div>
+        <div class="now"><span class="k">Tax paid by</span><span class="v">You, as advance tax</span></div>
+        <div class="was"><span class="k">Return</span><span class="v">ITR-1 / 2 by 31 July</span></div>
+        <div class="now"><span class="k">Return</span><span class="v">ITR-4 / 3 by 31 August</span></div>
+        <div class="was"><span class="k">GST</span><span class="v">None</span></div>
+        <div class="now"><span class="k">GST</span><span class="v">Export under an LUT, quarterly returns</span></div>
+      </div>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Also changes</th><th>Before</th><th>Now</th></tr></thead>
+          <tbody>
+            <tr><td>Old or new regime</td><td>pick each year</td><td>new is default; old needs <b>Form 44</b> by the due date, and you can switch back only once</td></tr>
+            <tr><td>Proof of income</td><td>Form 16, payslips</td><td>invoices, bank remittance advices, your ITRs</td></tr>
+            <tr><td>PF and gratuity</td><td>employer pays in</td><td>stops; you replace it with PPF, NPS, your own SIPs</td></tr>
+            <tr><td>Health and life cover</td><td>group policy</td><td>buy your own <b>before</b> your last day</td></tr>
+            <tr><td>Money held abroad</td><td>rarely</td><td>a Deel balance, Deel Card, Wise or Payoneer goes in <b>Schedule FA</b>, and forces ITR-3</td></tr>
+            <tr><td>Leave and notice pay</td><td>paid</td><td>unpaid unless the contract says so</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="first-year">
+      <span class="eyebrow">In order</span>
+      <h2>Your first year</h2>
+      <div class="journey">
+        <div><span class="when">Notice period</span><h3>Before you leave</h3><ul><li>Read the contract; confirm it is Deel <b>Contractor</b>, not EOR</li><li>Buy health and term cover while you have payslips</li><li>Collect F&amp;F, EPF details, Form 130 contact</li><li>Pick a work bank account and its trade-finance desk</li><li>Engage a CA</li></ul></div>
+        <div><span class="when">Before invoice 1</span><h3>Set up</h3><ul><li>Deel: verification, W-8BEN, bank method <b>with the NOC requested</b></li><li>Decide presumptive or books</li><li>GST: register or not; if yes, file the <b>LUT</b> first</li><li>Decide how a USD invoice becomes rupees</li></ul></div>
+        <div><span class="when">Every month</span><h3>Paper trail</h3><ul><li>Invoice, withdraw, note the UTR</li><li>Download confirmation and NOC</li><li>Request the bank's advice</li><li>EDF within 30 days of month end</li><li>Move the tax share aside</li></ul></div>
+        <div><span class="when">Every quarter</span><h3>Returns and tax</h3><ul><li>GSTR-1 by the 13th</li><li>GSTR-3B by the 22nd or 24th</li><li>Advance tax by 15 Jun, Sep, Dec, Mar (presumptive: all by 15 March)</li></ul></div>
+        <div><span class="when">After 31 March</span><h3>Close the year</h3><ul><li>Form 130, AIS, Form 168</li><li>31 December foreign balances</li><li>ITR by <b>31 August 2027</b></li><li>New LUT before the April invoice</li></ul></div>
+      </div>
+    </section>
+
+    <section id="estimator">
+      <span class="eyebrow">Run your numbers</span>
+      <h2>Presumptive or books, old or new</h2>
+      <p>The estimator computes tax for tax year 2026-27 four ways and shows how much of each Deel credit to set aside. It follows the slabs, rebate, surcharge and cess of the 2025 Act as amended in 2026. It ignores special-rate capital gains and other edge cases, so use it to plan and let your CA compute the return.</p>
+      <div class="tool">
+        <form class="inputs" id="est-form" autocomplete="off">
+          <span class="sample" id="sample-note">Example figures loaded: replace with yours</span>
+          <div class="field"><label for="salary">Salary this tax year (gross, ₹)</label><small>From April to your last working day</small><input type="text" inputmode="numeric" id="salary" value="8,00,000"></div>
+          <div class="field"><label for="tds">Salary TDS deducted by the employer (₹)</label><input type="text" inputmode="numeric" id="tds" value="0"></div>
+          <div class="field"><label for="receipts">Contract receipts expected this tax year (₹)</label><small>Everything invoiced from the first contract invoice to 31 March</small><input type="text" inputmode="numeric" id="receipts" value="40,00,000"></div>
+          <div class="field"><label for="expenses">Real business expenses, incl. depreciation (₹)</label><small>Laptop at 40 % a year, internet, software, co-working, CA fee</small><input type="text" inputmode="numeric" id="expenses" value="2,50,000"></div>
+          <div class="field"><label for="other">Other income: interest, rent, etc. (₹)</label><input type="text" inputmode="numeric" id="other" value="50,000"></div>
+          <div class="field"><label for="ded">Old-regime deductions you would claim (₹)</label><small>80C up to 1.5 lakh, 80D health cover, NPS 50,000, home-loan interest</small><input type="text" inputmode="numeric" id="ded" value="2,25,000"></div>
+          <div class="field"><label class="toggle" for="foreign"><input type="checkbox" id="foreign"> I hold money or shares outside India</label><small>Deel balance or card, Wise, Payoneer, RSUs at a US broker</small></div>
+        </form>
+        <div class="outputs" aria-live="polite">
+          <div class="verdict" id="verdict"><strong>…</strong><span></span></div>
+          <div class="grid4" id="grid4"></div>
+          <div class="table-scroll"><table><thead><tr><th>Advance tax, on the cheaper option</th><th class="num">Cumulative</th><th class="num">Pay this time</th></tr></thead><tbody id="adv"></tbody></table></div>
+          <ul class="flags" id="flags"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="gst">
+      <span class="eyebrow">GST</span>
+      <h2>Zero tax, real paperwork</h2>
+      <p>Work for a US client is an export of services, and exports are zero-rated. Once registered with a Letter of Undertaking (LUT) on file, you charge no GST and pay none on your fees. What GST costs is an invoice per fee, two returns a quarter and an LUT each April.</p>
+      <div class="rules">
+        <div class="rule"><h3>Must you register?</h3><p>Optional while contract fees in the financial year stay at or under <b>₹20 lakh</b> (₹10 lakh in Manipur, Mizoram, Nagaland, Tripura), thanks to Notification 10/2017-IT. Above it, mandatory within 30 days. Salary does not count; export fees do. No composition scheme for exporters.</p></div>
+        <div class="rule"><h3>Is it an export? (IGST s. 2(6))</h3><ol><li>You are in India</li><li>The client is outside India</li><li>Place of supply outside India: the client's location</li><li>Paid in foreign exchange, or in rupees the RBI permits</li><li>Not branches of one entity</li></ol><p class="note">Deel pays rupees out of a correspondent's <b>Rupee Vostro</b> account. CBIC Circular 263/09/2026-GST (26 October 2026) says Rupee Vostro and SNRR accounts are permissible for export proceeds. <span class="ca">For your CA</span>: check that the NOC's account fits.</p></div>
+        <div class="rule"><h3>The LUT</h3><ul><li>Form RFD-11 on gst.gov.in, under User Services</li><li>Accepted the moment the ARN appears</li><li>One financial year; renew in March</li><li>File <b>before</b> the first export invoice</li></ul></div>
+        <div class="rule"><h3>Your invoice (CGST Rule 46)</h3><ul><li>Your GSTIN, a serial number unique in the year</li><li>Client name, address, country</li><li>SAC <span class="mono">998314</span> (development) or <span class="mono">998313</span> (consulting)</li><li>"SUPPLY MEANT FOR EXPORT UNDER LETTER OF UNDERTAKING WITHOUT PAYMENT OF INTEGRATED TAX"</li><li>LUT ARN and date</li></ul></div>
+        <div class="rule"><h3>Returns under QRMP</h3><ul><li><b>GSTR-1</b> by the 13th after the quarter; exports in Table 6A</li><li><b>GSTR-3B</b> by the 22nd or 24th, by state; Table 3.1(b)</li><li>3B takes its sales from GSTR-1 and cannot be edited: get GSTR-1 right</li><li>No GSTR-9 below ₹2 crore</li></ul></div>
+        <div class="rule"><h3>New RBI rules, 1 October 2026</h3><ul><li>Realise each invoice within 9 months, or 12 if invoiced or settled in rupees</li><li>File an <b>EDF</b> with your bank within 30 days of the end of the invoice month</li></ul><p class="note">FEMA 23(R)/2026-RB. Ask your bank how it takes an EDF for a Deel rupee credit.</p></div>
+      </div>
+    </section>
+
+    <section id="deel">
+      <span class="eyebrow">Deel and your bank</span>
+      <h2>One credit, five documents</h2>
+      <p>A Deel rupee payout arrives as a domestic RTGS from Deel's Indian correspondent bank, so your bank never sees a foreign wire and issues no remittance advice by itself. Here is the routine that gets you one, every month.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Step</th><th>What</th><th>Watch for</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">Setup</td><td>Add the bank withdrawal method <b>and ask Deel for the NOC then</b></td><td>Deel says it cannot issue an NOC if you did not ask when adding the method</td></tr>
+            <tr><td class="mono">Day 0</td><td>Invoice approved; withdraw to your own-name account</td><td>Note the UTR; a name mismatch is rejected</td></tr>
+            <tr><td class="mono">Day 1</td><td>The credit lands as RTGS</td><td>Your bank may send no special alert</td></tr>
+            <tr><td class="mono">Day 3–5</td><td>Download the <b>withdrawal confirmation</b> and the <b>NOC</b> ("NOC for issuance of BIRC")</td><td>Deel e-mails when the NOC is ready</td></tr>
+            <tr><td class="mono">Same week</td><td>E-mail your bank's <b>trade-finance desk</b>, not the branch, with the NOC attached</td><td>Writing to the branch or leaving out the NOC is what costs people weeks</td></tr>
+            <tr><td class="mono">≤ 30 days</td><td>EDF for the invoice month, as your bank requires</td><td>New from 1 October 2026</td></tr>
+            <tr><td class="mono">File</td><td>Deel invoice, your GST invoice, confirmation, NOC, bank advice, statement line</td><td>Keep them together; they prove the export</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rules">
+        <div class="rule"><h3>Withdrawal methods</h3><p><b>INR bank transfer</b> is the default and leaves nothing abroad. A <b>Deel balance, Deel Card, Wise or Payoneer</b> holds money outside India: report it in Schedule FA, which also rules out ITR-4.</p></div>
+        <div class="rule"><h3>W-8BEN</h3><p>The US form saying you are not a US person. PAN goes in the foreign TIN field. Work done in India is not US-source income, so no US tax is withheld. <span class="ca">For your CA</span>: the treaty line in Part II. Renew by the end of the third calendar year.</p></div>
+        <div class="rule"><h3>Purpose code</h3><p>Ask Deel support and your bank before the first payout. <span class="mono">P0802</span> (software consulting) is typical; a goods or family code stalls the advice.</p></div>
+      </div>
+    </section>
+
+    <section id="calendar">
+      <span class="eyebrow">Every date</span>
+      <h2>Calendar, tax year 2026-27</h2>
+      <p>The highlighted row is the next date from today. GSTR-3B falls on the 22nd or 24th depending on your state.</p>
+      <div class="filters" role="group" aria-label="Show dates for">
+        <button type="button" data-f="all" aria-pressed="true">All</button>
+        <button type="button" data-f="it" aria-pressed="false">Income tax</button>
+        <button type="button" data-f="gst" aria-pressed="false">GST</button>
+        <button type="button" data-f="other" aria-pressed="false">FEMA and other</button>
+      </div>
+      <div class="cal" id="cal"></div>
+    </section>
+
+    <section id="checklist">
+      <span class="eyebrow">Tick as you go</span>
+      <h2>Setup checklist</h2>
+      <div class="progress"><span id="prog-text">0 of 0 done</span><div class="bar" aria-hidden="true"><i id="prog-bar"></i></div><button type="button" class="btn" id="reset">Clear ticks</button></div>
+      <p class="note">Ticks are saved in this browser only. Nobody else sees them.</p>
+      <div class="checks" id="checks"></div>
+    </section>
+
+    <section id="protection">
+      <span class="eyebrow">What your employer used to do</span>
+      <h2>Protection and cash flow</h2>
+      <div class="rules">
+        <div class="rule"><h3>Health cover</h3><p>Group cover ends with the job. Ask HR about converting to an individual policy within the window; otherwise buy before the end date, so waiting periods start early. A base policy plus a super top-up is the cheap way to a large cover.</p></div>
+        <div class="rule"><h3>Term life</h3><p>Apply <b>while you still have payslips</b>. Insurers underwrite the self-employed on ITRs, and your first contractor ITR is a year away.</p></div>
+        <div class="rule"><h3>Retirement</h3><p>PF stops. PPF (₹1.5 lakh a year), NPS, and a monthly SIP sized to what PF took (about 24 % of basic) replace the habit. EPF already saved: keep it, or withdraw tax-free after five years' service.</p></div>
+        <div class="rule"><h3>Cash flow</h3><p>One account for the work, a fixed monthly transfer to yourself, the set-aside percentage from the estimator moved on every credit, and an emergency fund of 6 to 12 months: a contract can end on short notice with no severance.</p></div>
+      </div>
+    </section>
+
+    <section id="sections">
+      <span class="eyebrow">Two numberings</span>
+      <h2>Old and new sections</h2>
+      <p>Tax year 2026-27 is the first under the Income-tax Act, 2025. CAs, articles and the portal will mix numberings for a while.</p>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Rule</th><th>1961 Act</th><th>2025 Act</th></tr></thead>
+          <tbody>
+            <tr><td>Presumptive scheme for professions (50 %)</td><td class="mono">44ADA</td><td class="mono">58(2) Sl. 3</td></tr>
+            <tr><td>Books of account; specified professions</td><td class="mono">44AA</td><td class="mono">62</td></tr>
+            <tr><td>Tax audit; report form</td><td class="mono">44AB; 3CB/3CD</td><td class="mono">63; Form 26</td></tr>
+            <tr><td>Business expenditure</td><td class="mono">37(1)</td><td class="mono">34(1)</td></tr>
+            <tr><td>Depreciation; 180-day half rate</td><td class="mono">32</td><td class="mono">33; 33(4)</td></tr>
+            <tr><td>New regime; opting out</td><td class="mono">115BAC; Form 10-IEA</td><td class="mono">202; Form 44</td></tr>
+            <tr><td>Rebate</td><td class="mono">87A</td><td class="mono">156</td></tr>
+            <tr><td>Standard deduction; gratuity; leave encashment</td><td class="mono">16(ia); 10(10); 10(10AA)</td><td class="mono">19(1) Table</td></tr>
+            <tr><td>80C; 80CCD(1B); 80D</td><td class="mono">80C; 80CCD; 80D</td><td class="mono">123; 124(3); 126</td></tr>
+            <tr><td>Advance tax: liability; instalments</td><td class="mono">208; 211</td><td class="mono">404; 408</td></tr>
+            <tr><td>Interest: late return; shortfall; deferment</td><td class="mono">234A; 234B; 234C</td><td class="mono">423; 424; 425</td></tr>
+            <tr><td>Late fee; revised-return fee</td><td class="mono">234F; 234-I</td><td class="mono">428(a); 428(b)</td></tr>
+            <tr><td>Return: due dates, belated, revised, updated</td><td class="mono">139(1), (4), (5), (8A)</td><td class="mono">263(1), (4), (5), (6)</td></tr>
+            <tr><td>Intimation; rectification</td><td class="mono">143(1); 154</td><td class="mono">270(1); 287</td></tr>
+            <tr><td>Salary TDS certificate; tax credit statement</td><td class="mono">Form 16; 26AS</td><td class="mono">Form 130; Form 168</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer id="about">
+      <span class="stamp">Check with your CA</span>
+      <p>Written in October 2026 for tax year 2026-27. Each rule cites the statute, rule, notification or circular it rests on, listed in the repository's <span class="mono">guide/sources.md</span>. Law, rates, forms and portal screens change every year, and some points are judgement calls. Use this to understand your situation and ask better questions, not as tax advice.</p>
+      <p>The repository is a template: create your own private copy and keep your documents under <span class="mono">years/</span>.</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  // ---------- number helpers ----------
+  const inr = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
+  const fmt = n => "₹" + inr.format(Math.round(n));
+  const parse = s => { const n = Number(String(s).replace(/[^0-9.]/g, "")); return isFinite(n) ? n : 0; };
+  const L = 100000;
+
+  // ---------- tax, tax year 2026-27 ----------
+  function slabTax(ti, slabs) {
+    let tax = 0, prev = 0;
+    for (const [upto, rate] of slabs) { if (ti > prev) tax += (Math.min(ti, upto) - prev) * rate; prev = upto; }
+    return tax;
+  }
+  const NEW = [[4*L,0],[8*L,.05],[12*L,.10],[16*L,.15],[20*L,.20],[24*L,.25],[Infinity,.30]];
+  const OLD = [[2.5*L,0],[5*L,.05],[10*L,.20],[Infinity,.30]];
+  function baseTax(ti, regime) {
+    if (regime === "new") { const t = slabTax(ti, NEW); if (ti <= 12*L) return 0; return Math.min(t, ti - 12*L); } // s. 156(2) rebate + marginal relief
+    const t = slabTax(ti, OLD); return ti <= 5*L ? 0 : t;                                                       // s. 156(1)
+  }
+  function surRate(ti, regime) {
+    if (ti > 500*L) return regime === "old" ? .37 : .25;
+    if (ti > 200*L) return .25; if (ti > 100*L) return .15; if (ti > 50*L) return .10; return 0;
+  }
+  function totalTax(ti, regime) {
+    ti = Math.max(0, Math.round(ti / 10) * 10);
+    let t = baseTax(ti, regime) * (1 + surRate(ti, regime));
+    for (const th of [50*L, 100*L, 200*L, 500*L]) {            // marginal relief at each surcharge step
+      if (ti > th && surRate(th, regime) !== surRate(ti, regime)) {
+        const cap = baseTax(th, regime) * (1 + surRate(th, regime)) + (ti - th);
+        t = Math.min(t, cap);
+      }
+    }
+    return t * 1.04;                                            // health and education cess
+  }
+
+  function compute(v) {
+    const out = {};
+    for (const route of ["presumptive", "books"]) {
+      for (const regime of ["new", "old"]) {
+        const key = route + "-" + regime;
+        if (route === "presumptive" && v.receipts > 75*L) { out[key] = null; continue; }
+        const sd = v.salary > 0 ? Math.min(v.salary, regime === "new" ? 75000 : 50000) : 0;
+        const profit = route === "presumptive" ? v.receipts * 0.5 : Math.max(0, v.receipts - v.expenses);
+        let ti = Math.max(0, v.salary - sd) + profit + v.other;
+        if (regime === "old") ti = Math.max(0, ti - v.ded);
+        out[key] = { ti, tax: totalTax(ti, regime), route, regime };
+      }
+    }
+    return out;
+  }
+
+  const ids = ["salary", "tds", "receipts", "expenses", "other", "ded"];
+  const els = Object.fromEntries(ids.map(i => [i, document.getElementById(i)]));
+  const foreign = document.getElementById("foreign");
+  const label = { "presumptive-new": "Presumptive · new regime", "presumptive-old": "Presumptive · old regime", "books-new": "Books · new regime", "books-old": "Books · old regime" };
+
+  function render() {
+    const v = Object.fromEntries(ids.map(i => [i, parse(els[i].value)]));
+    const r = compute(v);
+    const opts = Object.entries(r).filter(([, x]) => x);
+    opts.sort((a, b) => a[1].tax - b[1].tax);
+    const [bestKey, best] = opts[0];
+
+    // four cells
+    const grid = document.getElementById("grid4");
+    grid.innerHTML = "";
+    for (const k of Object.keys(label)) {
+      const x = r[k], c = document.createElement("div");
+      c.className = "cell" + (k === bestKey ? " best" : "") + (x ? "" : " na");
+      c.innerHTML = `<span class="k">${label[k]}</span><span class="v">${x ? fmt(x.tax) : "Not available above ₹75 lakh"}</span>` +
+        (x ? `<span class="k">income ${fmt(x.ti)}</span>` : "");
+      grid.appendChild(c);
+    }
+
+    const net = Math.max(0, best.tax - v.tds);
+    const pct = v.receipts > 0 ? net / v.receipts * 100 : 0;
+    const vd = document.getElementById("verdict");
+    const saving = opts.length > 1 ? opts[opts.length - 1][1].tax - best.tax : 0;
+    vd.querySelector("strong").textContent = label[bestKey] + ": " + fmt(best.tax);
+    vd.querySelector("span").textContent = v.receipts > 0
+      ? `After salary TDS, ${fmt(net)} is yours to pay as advance tax: set aside about ${pct.toFixed(1)} % of every Deel credit. The costliest of the four options would be ${fmt(saving)} more.`
+      : "Enter your expected contract receipts.";
+
+    // advance tax
+    const adv = document.getElementById("adv");
+    adv.innerHTML = "";
+    const rows = net < 10000 ? [["No advance tax: the tax after TDS is under ₹10,000 (s. 404)", null, null]]
+      : best.route === "presumptive"
+        ? [["15 March 2027 (whole amount, s. 408(2))", 1, 1]]
+        : [["15 June 2026", .15], ["15 September 2026", .45], ["15 December 2026", .75], ["15 March 2027", 1]].map((x, i, a) => [x[0], x[1], x[1] - (i ? a[i-1][1] : 0)]);
+    for (const [d, cum, now] of rows) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = cum === null ? `<td colspan="3">${d}</td>` : `<td>${d}</td><td class="num">${fmt(net * cum)} · ${Math.round(cum*100)} %</td><td class="num">${fmt(net * now)}</td>`;
+      adv.appendChild(tr);
+    }
+    if (best.route === "presumptive" && net >= 10000) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `<td colspan="3" class="note">The presumptive route may pay it all by 15 March, but paying about ${fmt(net / 4)} each quarter keeps it from being spent.</td>`;
+      adv.appendChild(tr);
+    }
+
+    // flags
+    const flags = [];
+    const books = best.route === "books";
+    const itr = (books || foreign.checked || best.ti > 50*L) ? "ITR-3" : "ITR-4";
+    flags.push(["info", "Return", `${itr}${foreign.checked ? " (foreign assets need Schedule FA, which ITR-4 lacks)" : ""}, due ${books && v.receipts > 50*L ? "31 October 2027 with a tax audit (report by 30 September)" : "31 August 2027"}.`]);
+    if (best.regime === "old") flags.push(["due", "Form 44", "The old regime needs Form 44 filed by the return due date, and you can switch back to the new regime only once."]);
+    if (v.receipts > 20*L) flags.push(["due", "GST", `Receipts above ₹20 lakh: registration is mandatory within 30 days of crossing it. File the LUT before the next invoice.`]);
+    else if (v.receipts > 0) flags.push(["ok", "GST", "Under ₹20 lakh: registration is optional. Count only contract fees, not salary."]);
+    if (books && v.receipts > 50*L) flags.push(["warn", "Audit", "Books with receipts above ₹50 lakh need a tax audit (s. 63)."]);
+    if (v.receipts > 75*L) flags.push(["warn", "Limit", "Above ₹75 lakh the presumptive scheme is closed: books and an audit."]);
+    if (v.expenses > v.receipts * 0.5 && v.receipts > 0) flags.push(["info", "Expenses", "Your expenses exceed half your receipts, so books can beat the 50 % presumption."]);
+    const ul = document.getElementById("flags");
+    ul.innerHTML = "";
+    for (const [cls, k, t] of flags) { const li = document.createElement("li"); li.innerHTML = `<span class="pill ${cls}">${k}</span><span>${t}</span>`; ul.appendChild(li); }
+  }
+
+  let touched = false;
+  document.getElementById("est-form").addEventListener("input", () => {
+    if (!touched) { touched = true; document.getElementById("sample-note").textContent = "Your figures"; }
+    render();
+  });
+  document.getElementById("est-form").addEventListener("submit", e => e.preventDefault());
+  ids.forEach(i => els[i].addEventListener("blur", () => { const n = parse(els[i].value); els[i].value = n ? inr.format(n) : "0"; }));
+  render();
+
+  // ---------- calendar ----------
+  const CAL = [
+    ["2026-06-15", "Advance tax: 15 % (books route)", "s. 408", "it"],
+    ["2026-07-13", "GSTR-1 for April–June", "Rule 59", "gst"],
+    ["2026-07-24", "GSTR-3B for April–June (22nd in some states)", "N. 82/2020-CT", "gst"],
+    ["2026-09-15", "Advance tax: 45 % (books route)", "s. 408", "it"],
+    ["2026-10-01", "New FEMA export rules: 9 / 12-month realisation, EDF", "FEMA 23(R)/2026", "other"],
+    ["2026-10-13", "GSTR-1 for July–September", "Rule 59", "gst"],
+    ["2026-10-24", "GSTR-3B for July–September (22nd in some states)", "N. 82/2020-CT", "gst"],
+    ["2026-10-31", "Last day to choose QRMP or monthly for October–December", "Rule 61A", "gst"],
+    ["2026-12-15", "Advance tax: 75 % (books route)", "s. 408", "it"],
+    ["2026-12-31", "Snapshot foreign balances for Schedule FA; FAST-DS 2026 closes", "BMA 2015", "other"],
+    ["2027-01-13", "GSTR-1 for October–December", "Rule 59", "gst"],
+    ["2027-01-24", "GSTR-3B for October–December (22nd in some states)", "N. 82/2020-CT", "gst"],
+    ["2027-03-15", "Advance tax: 100 %; presumptive route pays it all", "s. 408(2)", "it", 1],
+    ["2027-03-31", "Tax year ends; LUT for 2027-28 in place before the first April invoice", "Rule 96A", "gst"],
+    ["2027-04-13", "GSTR-1 for January–March", "Rule 59", "gst"],
+    ["2027-04-24", "GSTR-3B for January–March (22nd in some states)", "N. 82/2020-CT", "gst"],
+    ["2027-06-30", "Form 130 from your former employer; download AIS and Form 168", "", "it"],
+    ["2027-08-31", "ITR due (presumptive or unaudited books); Form 44 if choosing the old regime", "s. 263(1)(c)", "it", 1],
+    ["2027-09-30", "Tax audit report, Form 26 (only if audited)", "s. 63", "it"],
+    ["2027-10-31", "ITR due if audited", "s. 263(1)(c)", "it"],
+    ["2027-12-31", "Last date for a belated return", "s. 263(4)", "it"],
+    ["2028-03-31", "Last date for a revised return", "s. 263(5)", "it"],
+  ];
+  const calEl = document.getElementById("cal");
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const dfmt = new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" });
+  let nextIdx = CAL.findIndex(r => new Date(r[0] + "T00:00:00") >= today);
+  function drawCal(filter) {
+    calEl.innerHTML = "";
+    CAL.forEach((r, i) => {
+      if (filter !== "all" && r[3] !== filter) return;
+      const d = new Date(r[0] + "T00:00:00");
+      const row = document.createElement("div");
+      row.className = "cal-row" + (d < today ? " past" : "") + (i === nextIdx ? " next" : "") + (r[4] ? " big" : "");
+      row.innerHTML = `<span class="d">${dfmt.format(d)}</span><span class="what">${r[1]}${i === nextIdx ? ' <span class="pill due">next</span>' : ""}</span><span class="law">${r[2]}</span>`;
+      calEl.appendChild(row);
+    });
+  }
+  document.querySelectorAll(".filters button").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll(".filters button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    drawCal(b.dataset.f);
+  }));
+  drawCal("all");
+
+  // ---------- checklist (this browser only) ----------
+  const CHECKS = [
+    ["During the notice period", [
+      ["np-contract", "Contract read; it is Deel Contractor, not EOR", "ch. 09"],
+      ["np-health", "Own health insurance in force before the group cover ends", "ch. 08"],
+      ["np-term", "Term insurance applied for while payslips are current", "ch. 08"],
+      ["np-ff", "F&F statement, relieving letter, payslips saved", "ch. 07"],
+      ["np-form130", "Form 130 delivery e-mail confirmed with HR", "ch. 07"],
+      ["np-epf", "EPF: UAN KYC done, exit date marked, keep or withdraw decided", "ch. 07"],
+      ["np-bank", "Work bank account chosen; trade-finance desk e-mail obtained", "ch. 05"],
+      ["np-ca", "CA engaged; scope and fee in writing", "ch. 11"],
+    ]],
+    ["Before the first invoice", [
+      ["fi-deel", "Deel account in your legal name; verification complete", "ch. 04"],
+      ["fi-w8", "W-8BEN signed with PAN as foreign TIN; PDF saved", "ch. 04"],
+      ["fi-noc", "Bank withdrawal method added, NOC requested at the same time", "ch. 04"],
+      ["fi-purpose", "Purpose code confirmed with Deel and the bank", "ch. 05"],
+      ["fi-route", "Presumptive or books decided", "ch. 02"],
+      ["fi-regime", "Old or new regime decided (Form 44 noted if old)", "ch. 01"],
+      ["fi-rate", "Rupee value method for USD invoices written down", "ch. 03"],
+      ["fi-gst", "GST: register now or at ₹20 lakh, decided", "ch. 03"],
+      ["fi-lut", "If registered: QRMP chosen and LUT filed", "ch. 03"],
+      ["fi-series", "Invoice series and template ready", "ch. 09"],
+      ["fi-edf", "Bank asked how it takes the EDF", "ch. 03"],
+      ["fi-aside", "Tax set-aside account opened; percentage set", "ch. 08"],
+      ["fi-letter", "Client letter confirming the engagement, for future loans", "ch. 10"],
+    ]],
+  ];
+  const KEY = "payslip-to-invoice:checks";
+  let state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { state = {}; }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+  const checksEl = document.getElementById("checks");
+  let total = 0;
+  for (const [title, items] of CHECKS) {
+    const fs = document.createElement("fieldset");
+    fs.innerHTML = `<legend>${title}</legend>`;
+    for (const [id, text, ref] of items) {
+      total++;
+      const lab = document.createElement("label");
+      lab.className = "check"; lab.htmlFor = "c-" + id;
+      lab.innerHTML = `<input type="checkbox" id="c-${id}" ${state[id] ? "checked" : ""}><span>${text}</span><span class="ref">${ref}</span>`;
+      lab.querySelector("input").addEventListener("change", e => { state[id] = e.target.checked; save(); prog(); });
+      fs.appendChild(lab);
+    }
+    checksEl.appendChild(fs);
+  }
+  function prog() {
+    const done = Object.values(state).filter(Boolean).length;
+    document.getElementById("prog-text").textContent = `${done} of ${total} done`;
+    document.getElementById("prog-bar").style.width = (done / total * 100) + "%";
+  }
+  document.getElementById("reset").addEventListener("click", () => {
+    state = {}; save(); checksEl.querySelectorAll("input").forEach(i => { i.checked = false; }); prog();
+  });
+  prog();
+})();
+</script>

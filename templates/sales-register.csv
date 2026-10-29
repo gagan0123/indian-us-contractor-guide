@@ -1,0 +1,2 @@
+invoice_no,invoice_date,service_period,deel_invoice_no,currency,amount_foreign,inr_value,inr_basis,credit_date,inr_credited,utr,noc_file,advice_file,edf_date,gstr1_quarter,notes
+EXP/26-27/001,2026-08-31,2026-08-01 to 2026-08-31,INV-EXAMPLE,USD,5000.00,,,,,,,,,,example row: delete before use
