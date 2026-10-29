@@ -16,7 +16,7 @@ needed under CGST Rule 46 unless marked optional.
 | Invoice date | `DD-MM-YYYY` |
 | Service period | `01-MM-YYYY to DD-MM-YYYY` |
 | LUT ARN and date | `AD<...>` dated `DD-MM-YYYY` (financial year `2026-27`) |
-| Platform reference (optional) | Deel invoice `<number>` |
+| Platform reference (optional) | Deel contract `<name or id>`, cycle `<period>` |
 
 **Supplier**
 `<Your full name>`

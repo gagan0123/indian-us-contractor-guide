@@ -48,9 +48,10 @@ Collected from the chapters:
 4. The rupee value for a USD invoice, and invoice date or credit date
    (`01`, `03`, `04`).
 5. Register for GST now or at ₹20 lakh (`03`).
-6. Whether the NOC's Vostro account falls within Circular 263/09/2026,
-   and anything needed for earlier months (`03`).
-7. Deel's invoice plus your own GST invoice (`03`, `09`).
+6. Anything needed for rupee credits before Circular 263/09/2026 (26
+   October 2026), if a refund is claimed for those months (`03`).
+7. Your GST invoice uploaded to Deel in place of its standard invoice
+   (`03`, `09`).
 8. The EDF process with your bank (`03`, `05`).
 9. Schedule FA: which platform balances to report (`06`).
 10. EPF: keep, withdraw or move; tax on interest after leaving (`07`).

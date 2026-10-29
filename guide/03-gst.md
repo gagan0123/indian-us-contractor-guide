@@ -59,14 +59,18 @@ correspondent bank's **Rupee Vostro account** (an account a foreign bank
 holds in rupees with an Indian bank). Until recently only the "Special
 Rupee Vostro Account" route had been clarified (CBIC Circular
 202/14/2023-GST), and an ordinary Vostro payout was arguable. **CBIC
-Circular 263/09/2026-GST of 26 October 2026** now states that "Rupee
-Vostro and SNRR are permissible accounts for receipt of export proceeds"
-and that payment into repatriable rupee accounts satisfies s. 2(6)(iv),
-relying on the RBI's FEMA 14(R)/2023 receipt rules, which allow export
-proceeds from the US in rupees. (Read here from published reproductions;
-check the PDF on cbic-gst.gov.in once it is listed there.) The circular
-also says meeting condition 4 does not by itself make a supply an export;
-the other four still apply, and for a US client they normally do.
+Circular 263/09/2026-GST of 26 October 2026** settles it (copy in
+`reference/`, from CBIC's tax-information portal). Para 2.2: under the
+RBI's FEMA 14(R)/2023 rules, payment for exports to countries outside the
+Asian Clearing Union may be in rupees, "facilitated either through INR
+Nostro (Rupee Vostro) of correspondent banks or repatriable INR
+accounts", and "Rupee Vostro and SNRR are permissible accounts for
+receipt of export proceeds". Para 2.3: payment received in convertible
+foreign exchange or in repatriable rupee accounts, "or any other similar
+account for repatriation of foreign exchange", fulfils s. 2(6)(iv). A
+Deel payout from a correspondent's Rupee Vostro account is the case para
+2.2 describes. Condition 4 is only one of five; for a US client the
+other four normally hold too.
 
 **Intermediary**: older articles warn that some services are taxed in
 India as "intermediary" services. That place-of-supply rule (IGST s.
@@ -119,11 +123,13 @@ take their answer to your CA.
 ## The export invoice
 
 If you are registered, each fee needs a tax invoice under **CGST Rule
-46**. Deel's own invoice usually lacks your GSTIN, the LUT line and your
-own serial number, so the safe default is to **issue your own GST invoice
-for each Deel invoice** (same date and amount, citing the Deel invoice
-number) and report yours in GSTR-1. Check first whether Deel lets you add
-these fields to its invoice. Template: `templates/export-invoice.md`.
+46**. Deel's standard invoice lacks your GSTIN, the LUT line and your own
+serial number, and only the client can add tax lines to it. Deel does let
+a contractor **upload a custom invoice that replaces its standard one**
+(Finance → Invoices → options menu → Replace with custom invoice). So:
+issue your GST invoice for the cycle, same date and amount, upload it in
+place of Deel's, and report it in GSTR-1. One document, no duplicate
+numbering. Template: `templates/export-invoice.md`.
 
 It must carry:
 
@@ -247,9 +253,10 @@ If you return to employment or drop below the threshold, cancel with
 ## For your CA
 
 - Register now, or wait for ₹20 lakh?
-- Does the NOC's account description fall within Circular 263/09/2026?
-  Any step needed for rupee credits received before 26 October 2026?
-- Is a Deel invoice plus your own GST invoice the right pairing?
+- Any step needed for rupee credits received before 26 October 2026,
+  if you claim a refund for those months? (The circular clarifies existing
+  law, so it is usually read as covering them.)
+- Your GST invoice uploaded in place of Deel's: any objection?
 - Which rupee value goes into GSTR-1?
 - How will your bank take the EDF?
 - Is a return with only zero-rated exports charged the nil late-fee rate?

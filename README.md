@@ -37,6 +37,7 @@ repository.
 | `checklists/` | Setup, monthly, quarterly, year-end |
 | `templates/` | Export invoice, bank advice e-mail, CA brief, sales register |
 | `years/2026-27/` | Folder skeleton and decision notes for one year |
+| `reference/` | Primary documents the guide quotes (CBIC Circular 263/09/2026-GST) |
 
 Copy `years/2026-27/` to `years/2027-28/` each April.
 

@@ -45,9 +45,10 @@ chapter relies on secondary sources only, it says so.
   `gstcouncil.gov.in/sites/default/files/2024-06/circular-no-202-14-2023.pdf`.
   Primary.
 - **CBIC Circular 263/09/2026-GST, 26 October 2026, F. No.
-  CBIC-20001/2/2026-GST** (Rupee Vostro, SNRR, repatriable INR accounts):
-  as reproduced by taxguru.in and jurishour.in. **Check against the PDF on
-  cbic-gst.gov.in once listed.**
+  CBIC-20001/2/2026-GST** (Rupee Vostro, SNRR, repatriable INR accounts),
+  downloaded from CBIC's tax-information portal
+  (taxinformation.cbic.gov.in, GST → Circulars) on 29 October 2026; copy
+  in `reference/cbic-circular-263-09-2026-GST.pdf`. Primary.
 - Circular 40/14/2018-GST (LUT deemed accepted on ARN): gstzen.in.
 - Notification 82/2020-CT (GSTR-3B due dates by state), 19/2021-CT (late
   fee caps), 15/2025-CT (GSTR-9 exemption to ₹2 crore).
@@ -68,9 +69,29 @@ chapter relies on secondary sources only, it says so.
 
 ## Deel
 
-- Deel help centre articles on withdrawal methods, failed withdrawals,
-  For Further Credit, and the NOC for FIRC (help.letsdeel.com); Deel
-  glossary on Form W-8BEN (deel.com/glossary/form-w-8ben). Read through
-  search extracts; **check menu names in the app**.
+- Deel help centre (help.letsdeel.com/hc/en-gb/articles/<id>), read in
+  full on 29 October 2026, with each article's last-updated date:
+  - 10079657522193 About Failed Or Delayed Withdrawals (2026-08-03): FIRC
+    and NOC, requesting the NOC at setup, where to download it, IRM in
+    EDPMS, Trace ID
+  - 14391381019537 About Withdrawal Fees and Withdrawal Minimums
+    (2026-10-16)
+  - 17285841901585 Important Information for Withdrawals to Indusind Bank
+    in India (2024-12-11): purpose "Software consultancy/implementation
+    (other than those covered in SOFTEX form)", not salary
+  - 4407745439761 What Types Of Contracts Can I Create On Deel?
+    (2026-01-09)
+  - 14639934818705 When Do Contractors Get Paid? (2026-08-06)
+  - 9266361465361 Guide to Contractor Invoices & Adjustments (2026-04-28):
+    custom invoice replaces Deel's standard invoice
+  - 4407737855889 How Clients Can Add Sales Tax to Invoices (2026-03-02):
+    only clients add tax lines
+  - 4407737843217 Guide To Tax Form W-8BEN (US) (2025-12-03)
+  - 4407737887889 How to Verify a Contractor Account (2026-08-07)
+  - 7338494928913 How Contractors can move funds from Deel (2026-09-04):
+    automatic withdrawal
+  - 22078361718929 About For Further Credit (FFC) for Contractor
+    Withdrawals (2026-08-07)
+  - 26554806456593 How to Use Deel Wallet (2026-08-07): US residents only
 - Deel community India group threads on FIRC and banks; Upwork help on
   the "NOC for issuance of BIRC" naming. Anecdotal or secondary.

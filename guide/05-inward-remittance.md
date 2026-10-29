@@ -49,6 +49,11 @@ nothing unless asked, and it asks for the correspondent's NOC first.
    month.
 5. **Receive the advice** (by e-mail and often by courier). It may print
    no USD amount and no exchange rate for a rupee credit; that is normal.
+   Deel's help centre notes that once the bank has the documents it
+   generates an **Inward Remittance (IRM) number** in RBI's Export Data
+   Processing and Monitoring System (EDPMS). Ask the desk for the IRM
+   number: it is what your EDF and the export record are matched
+   against.
 6. **File the set** in that month's folder (`checklists/monthly.md`).
 7. **EDF**: within 30 days of the end of the invoice month, as your bank
    asks (`03-gst.md`). Raise it in the first e-mail so you learn the
@@ -59,6 +64,11 @@ went to the branch or lacked the NOC. Once the desk knows you, a day is
 common.
 
 ## If the bank will not issue it
+
+Some banks hold the credit itself first: Deel's help centre says
+IndusInd may ask for the contract and invoices before crediting, adding up
+to ten business days. Answer promptly, and describe the payment as
+software consultancy, never salary.
 
 Some banks resist issuing an advice for a rupee credit even with an NOC.
 Ask for the refusal in writing, keep the NOC, the withdrawal confirmation

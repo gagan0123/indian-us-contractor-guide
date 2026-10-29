@@ -8,50 +8,56 @@ Record), Deel's Indian entity employs you, you get a salary with TDS and a
 Form 16, and most of this guide does not apply. Check which one it is
 before you sign.
 
-Deel's help centre changes often and menu names move. Where this chapter
-names a screen, treat it as a pointer and confirm it in the app. Anything
-marked **(check)** was not confirmed from a Deel page when this was
-written.
+Menu paths and fees below were read from Deel's help centre on 29
+October 2026 (articles listed in `sources.md`). Deel moves screens often;
+if a path has changed, search the help centre for the article title.
 
 ## Before the first invoice
 
 | # | Step | Why it matters |
 |---|---|---|
 | 1 | Accept the client's invite and create the account in your **legal name exactly as on your PAN and bank account** | A withdrawal to an account that is not in your own name is rejected. A business (current) account in a trade name needs extra "For Further Credit" papers |
-| 2 | Complete identity verification (a selfie and an ID document; a passport is accepted, other IDs **(check)**) | Payouts are blocked until it clears |
+| 2 | Complete identity verification: Profile settings → Verification → Verify. Deel's partner Veriff asks for a selfie and a photo of a government-issued photo ID; if Veriff fails you can request manual review (about one business day) | You cannot withdraw until it clears, and some clients require it before you can even sign the contract |
 | 3 | Review the contract before signing: scope, IP assignment, termination notice, payment cycle, **contract currency**, who bears Deel or bank fees, governing law | See `09-contract-and-invoicing.md` for the clauses to read closely |
-| 4 | Fill the **W-8BEN** (the US tax form for a non-US individual). Put your **PAN in the foreign TIN field** and India as country of residence. Save the signed PDF | It tells the client no US tax should be withheld. Services performed entirely in India are generally not US-source income, so no US withholding arises; whether to fill the treaty claim in Part II (and cite Article 15 or Article 7 of the India-US treaty) is a point to settle with your CA. A W-8BEN stays valid to the end of the third calendar year after you sign it, unless your circumstances change |
+| 4 | Fill the **W-8BEN** (the US tax form for a non-US individual; Deel names "a sole proprietor in India" as a W-8BEN filer): Finance → Tax Documents → Create US tax forms. Put your **PAN in the foreign TIN field** and India as country of residence. Download the PDF from the same tab | It tells the client no US tax should be withheld. Services performed entirely in India are generally not US-source income, so no US withholding arises; whether to fill the treaty claim in Part II (and cite Article 15 or Article 7 of the India-US treaty) is a point to settle with your CA. A W-8BEN stays valid to the end of the third calendar year after you sign it, unless your circumstances change |
 | 5 | Add the **bank transfer withdrawal method** to your INR savings or current account, and **tell Deel you need the NOC for FIRC at that moment** | Deel says it cannot provide the NOC if you did not ask for it when adding the method. Without the NOC your bank will not issue the inward remittance advice, which is your export evidence (see `05-inward-remittance.md`) |
-| 6 | Ask Deel support which **purpose code** it sends the money under, and ask your bank which code it expects for your work | A wrong code (for example one meant for goods, or for a family transfer) stalls the advice and needs a corrected NOC. Software consulting is usually P0802; P0807 is off-site software export under SOFTEX. Pick with your bank and CA |
+| 6 | Know the **purpose** your payout carries. Deel's help centre says INR payouts are sent as "Software consultancy/implementation (other than those covered in SOFTEX form)", which is purpose code **P0802**. If your bank calls to ask what the credit is, say exactly that, **never "salary"** | A salary description contradicts the export and stalls the advice. Some banks (Deel names IndusInd) hold the credit and ask for the contract and invoices first, adding up to ten business days: keep both ready |
 | 7 | Ask your bank, before the first credit, **which desk issues inward remittance advice** (usually trade finance or forex operations, not the branch) and its e-mail address | The single biggest delay people report is writing to the branch |
-| 8 | Settle the GST position with your CA (`03-gst.md`): register or not, file the LUT **before** the first export invoice, and whether Deel's invoice can carry your GSTIN and the LUT line **(check in the app or with Deel support)** | If it cannot, you issue your own GST invoice for each Deel invoice; see the template in `templates/` |
-| 9 | Decide manual or automatic withdrawal | Monthly manual withdrawal keeps one credit per invoice, which makes the paper trail simple |
+| 8 | Settle the GST position with your CA (`03-gst.md`): register or not, and file the LUT **before** the first export invoice | Deel's standard invoice has no field for your GSTIN or the LUT line, and only the client can add tax lines. But you can **upload your own invoice, which replaces Deel's**: Finance → Invoices → the invoice's options menu → Replace with custom invoice. Upload your GST invoice (`templates/export-invoice.md`) there each cycle, and Deel's record and your tax invoice are one document |
+| 9 | Decide manual or automatic withdrawal: Account settings → Withdrawal Methods, where you set the preferred method and can auto-withdraw all or part of each payment | Automatic withdrawal of 100 % to the bank keeps one credit per invoice and nothing left abroad |
 
 ## Contract types
 
-Deel offers three contractor payment shapes: **fixed rate** (a set amount
-per cycle; the invoice is generated for you), **pay as you go** (you
-submit hours or work each cycle) and **milestone** (paid when a milestone
-is approved) **(check the current names)**. The client sets an approval
-policy: under some settings a fixed-rate invoice flows without the
-client's approval and only extras (bonus, overtime) wait.
+Deel has three independent-contractor contracts: **Fixed Rate** (a set
+amount each pay cycle; the invoice is generated automatically), **Pay As
+You Go** (paid on the days, hours or tasks you submit) and **Milestone**
+(paid when a milestone is approved; no regular invoice cycle). The
+client sets an approval policy; under some settings a fixed-rate invoice
+flows without approval and only extras (bonus, overtime) wait. Funds
+reach your Deel balance on the contract's due date if the client has
+paid; the contract's details page shows the invoice cycle, and Finance →
+Transactions shows incoming payments with a payment tracker. Both sides
+must sign before a contract is active.
 
 ## Withdrawal methods and what they mean for tax
 
-| Method | Deel fee (as reported, may change) | What you need to know |
+| Method | Deel fee (help centre, updated 16 October 2026) | What you need to know |
 |---|---|---|
-| Local bank transfer in INR | No Deel fee reported; the exchange rate carries a margin, and a provider fee may apply | Arrives by RTGS/NEFT from Deel's Indian correspondent bank, which debits a rupee Vostro account. **The default for most Indian contractors**, and the only one that leaves nothing held abroad |
-| SWIFT transfer | about USD 5 to 25, plus intermediary bank charges | The bank sees a foreign wire and usually issues the advice itself |
-| Deel Balance left un-withdrawn, Deel Card, Deel USD account | no Deel fee on the card | Money held outside India. **Report it in Schedule FA** of your ITR (`06-foreign-assets.md`), and ITR-4 cannot carry Schedule FA |
-| Wise, Payoneer, Revolut, crypto | provider fees; Payoneer about 1 % | Same Schedule FA point; and a wallet balance converted later through a provider can change who the remitter is on your bank's advice |
+| Local bank transfer in INR | **$0** (minimum $10); a provider fee may apply in some currencies, and the exchange rate carries a margin | Arrives by RTGS/NEFT from Deel's Indian correspondent bank, which debits a rupee Vostro account. **The default for most Indian contractors**, the only method Deel issues the NOC for, and the only one that leaves nothing held abroad |
+| SWIFT transfer | $5, capped at $10 (minimum $100), plus intermediary bank deductions | The bank sees a foreign wire; but Deel's NOC is not available for it |
+| Deel balance left un-withdrawn, Deel Card | Deel Card $0 | Money held outside India. **Report it in Schedule FA** of your ITR (`06-foreign-assets.md`), and ITR-4 cannot carry Schedule FA |
+| Wise, Revolut ($0), Payoneer (1 %, minimum $12), PayPal (2.5 %), crypto | as shown | Same Schedule FA point; no Deel NOC; and the remitter on your bank's advice becomes the provider |
 
 The pop-up before you confirm a withdrawal shows the fee and the rate.
 Note it: the difference between that rate and the day's reference rate is
 the real cost of the method.
 
-A failed withdrawal returns to your Deel balance in three to five
-business days. If money does not arrive, the **Trace ID** on the
-transaction's confirmation is what Deel support needs.
+Deel adds a $5 fee to any same-currency cross-border withdrawal. A
+failed withdrawal returns to your Deel balance in three to five business
+days. If money does not arrive by the estimated date, report it from the
+transaction tracker; the **Trace ID** on the withdrawal's confirmation
+statement (Finance → Transactions → the withdrawal) is what your bank and
+Deel support need.
 
 ## The monthly routine
 
@@ -60,15 +66,15 @@ transaction's confirmation is what Deel support needs.
 2. **Withdraw** to your bank. Deel mails that the money is on the way;
    the credit lands as an RTGS line, usually next working day. Your bank
    may send no special alert for it.
-3. **Download, three to four days later**, from Transactions → the
-   withdrawal (**check** the menu): the **Withdrawal Confirmation** and the
-   **NOC** (since late 2023 often titled "NOC for issuance of BIRC"). Deel
-   mails when the NOC is ready.
+3. **Download, a few business days later**, from Finance → Transactions
+   → the withdrawal → Withdrawal Details: the **withdrawal confirmation**
+   statement and the **NOC** (since late 2023 often titled "NOC for
+   issuance of BIRC"). Deel mails when the NOC is ready.
 4. **Request the bank's advice**: one e-mail to the inward remittance or
    trade-finance desk, with the NOC attached and the details as the NOC
    prints them. Template: `templates/bank-advice-request.md`.
-5. **File the set together** in that month's folder: the Deel invoice,
-   your own GST invoice if you issue one, the withdrawal confirmation, the
+5. **File the set together** in that month's folder: the invoice (your
+   GST invoice, uploaded to Deel in place of its own), the withdrawal confirmation, the
    NOC, the bank's advice, and the bank statement line. One credit, one
    folder, five documents. `checklists/monthly.md` has the list.
 6. **GST**: the invoice goes into that quarter's GSTR-1 as an export
@@ -78,8 +84,8 @@ transaction's confirmation is what Deel support needs.
 
 - Every invoice of the financial year (April to March).
 - Every withdrawal confirmation and NOC.
-- Deel's transaction history or earnings report for April to March
-  (**check** the report's name).
+- Deel's transaction list for April to March (Finance → Transactions).
+  Invoices are under Finance → Invoices.
 - Your Deel balance at **31 December** and at **31 March**, and the
   highest balance during the calendar year, if you ever held money there
   (Schedule FA works on the calendar year).

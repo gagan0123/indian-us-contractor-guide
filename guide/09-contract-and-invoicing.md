@@ -30,8 +30,10 @@ template. Practical rules:
 
 - **One series per financial year**, eg `EXP/26-27/001`, restarting each
   April; no gaps, no reuse.
-- **Same date and amount as the Deel invoice**, and cite the Deel invoice
-  number in the description, so the two pair up.
+- **Upload it to Deel in place of Deel's standard invoice** (Finance →
+  Invoices → options menu → Replace with custom invoice), so the client's
+  record and your tax invoice are the same document. Match the cycle's
+  date and amount.
 - **Issue within 30 days** of the service period.
 - Keep a **sales register**: a one-line-per-invoice sheet with invoice
   number, date, Deel invoice number, USD amount, INR value used for GST
